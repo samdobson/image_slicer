@@ -39,7 +39,10 @@
         <ul></ul>
       </nav>
       <section>
-        <p>read the <a href="https://image-slicer.readthedocs.org/en/latest/">docs</a> | download the <a href="https://github.com/samdobson/image_slicer/archive/master.zip">source</a> | fork the <a href="http://samdobson.github.com/image_slicer">repo</a></p>
+        <p>read the <a href="https://image-slicer.readthedocs.org/en/latest/">docs</a> | download the <a href="https://github.com/samdobson/image_slicer/archive/master.tar.gz">source</a> | fork the <a href="http://samdobson.github.com/image_slicer">repo</a></p>
+
+<div class="highlight"><pre>    <span class="nv">$ </span>pip install image_slicer
+</pre></div>
 
 <h2>
 <a name="what-does-it-do" class="anchor" href="#what-does-it-do"><span class="octicon octicon-link"></span></a>What does it do?</h2>
@@ -49,21 +52,16 @@
 <p>Whether you are planning a collaborative art project, creating a jigsaw puzzle, or simply get a kick out of dividing images into equally-sized quadrilaterals... this package is for you!</p>
 
 <h2>
-<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h2>
+<a name="how-do-i-use-it" class="anchor" href="#how-do-i-use-it"><span class="octicon octicon-link"></span></a>How do I use it?</h2>
 
-<p>Installation is as simple as:</p>
-
-<div class="highlight"><pre>    <span class="nv">$ </span>pip install image_slicer
-</pre></div>
-
-<p>You can slice images from your Python code:</p>
+<p>Slice images from your Python code:</p>
 
 <div class="highlight"><pre>
-    <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">image_slicer</span>
-    <span class="o">&gt;&gt;&gt;</span> <span class="n">img</span> <span class="o">=</span> <span class="s">'cake.jpg'</span>
-    <span class="o">&gt;&gt;&gt;</span> <span class="n">num_tiles</span> <span class="o">=</span> <span class="mi">36</span>
-    <span class="o">&gt;&gt;&gt;</span> <span class="n">tiles</span> <span class="o">=</span> <span class="n">image_slicer</span><span class="o">.</span><span class="n">split_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">num_tiles</span><span class="p">)</span>
-    <span class="o">&gt;&gt;&gt;</span> <span class="n">image_slicer</span><span class="o">.</span><span class="n">save_tiles</span><span class="p">(</span><span class="n">tiles</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">image_slicer</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="s">'cake.jpg'</span>
+    <span class="n">num_tiles</span> <span class="o">=</span> <span class="mi">36</span>
+    <span class="n">tiles</span> <span class="o">=</span> <span class="n">image_slicer</span><span class="o">.</span><span class="n">split_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">num_tiles</span><span class="p">)</span>
+    <span class="n">image_slicer</span><span class="o">.</span><span class="n">save_tiles</span><span class="p">(</span><span class="n">tiles</span><span class="p">)</span>
 </pre></div>
 
 <p>... or from the command line:</p>
@@ -71,7 +69,7 @@
 <div class="highlight"><pre>    <span class="nv">$ </span>slice-image cake.jpg 36
 </pre></div>
 
-<p>Want <a href="https://image-slicer.readthedocs.org/en/latest/examples/">more examples</a>?</p>
+<p><a href="https://image-slicer.readthedocs.org/en/latest/examples/">More examples</a>?</p>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/samdobson">samdobson</a></p>
