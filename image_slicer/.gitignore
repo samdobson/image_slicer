@@ -1,0 +1,8 @@
+# .gitignore
+*.pyc
+/dist/
+/*.egg-info
+*.png
+*.jpg
+*.gif
+*.bmp
