@@ -64,24 +64,14 @@ def split_image(filename, num_tiles):
     Split an image into a specified number of tiles.
     Return a tuple of ``_ImageCrop`` instances.
     """
-#    try:
+    # Needs tests.
     im = Image.open(filename)
-#    except:
-#        raise ValueError('Invalid image file: {0}'.format(filename))
     validate_image(im, num_tiles)
 
     im_w, im_h = im.size
     columns, rows = calc_columns_rows(num_tiles)
     extras = (columns * rows) - num_tiles
-    tile_w, tile_h = im_w / columns, im_h / rows
-
-#    print("""
-#            Image size: {0}
-#            No. tiles:  {1}
-#            Columns:    {2}
-#            Rows:       {3}
-#            Tile size:  {4}, {5}
-#          """.format(im.size, num_tiles, columns, rows, tile_w, tile_h))
+    tile_w, tile_h = int(im_w / columns), int(im_h / rows)
 
     tiles = []
     num = 1
