@@ -1,6 +1,8 @@
 # .gitignore
 *.pyc
 *.egg-info
+.tox/
+tox.ini
 .coverage
 MANIFEST
 docs/_build
@@ -8,3 +10,4 @@ docs/_static
 docs/_templates
 build/
 dist/
+
