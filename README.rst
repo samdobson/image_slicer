@@ -20,7 +20,7 @@ Whether you are planning a collaborative art project, creating a jigsaw puzzle, 
 Installation
 ------------
 
-.. code-block:: console
+.. code-block:: bash
 
 	$ pip install image_slicer
 
@@ -44,7 +44,7 @@ Slice an image with Python:
 
 ... or from the command line:
 
-.. code-block:: console
+.. code-block:: bash
 
 	$ slice-image fish.jpg 36
 
