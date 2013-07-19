@@ -15,16 +15,16 @@ What does it do?
 
 Splits an image into >n equally-sized tiles. Also capable of joining the pieces back together.
 
-Whether you are planning a collaborative art project, creating a jigsaw puzzle, or simply enjoy dividing images into perfectly equal squares, this module is for you!
+Whether you are planning a collaborative art project, creating a jigsaw puzzle, or simply get a kick out of dividing images into perfectly equal squares, this module is for you!
 
 Installation
 ------------
 
-::
+.. code-block:: console
+
 	$ pip install image_slicer
 
-Compatibility
--------------
+*Compatible with:*
 
 * Python >=2.7
 * Python >=3.2
@@ -36,15 +36,16 @@ Slice an image with Python:
 
 .. code-block:: python
 
-	>>> from image_slicer import split_image, join_tiles
+	>>> import image_slicer
 	>>> file = 'fish.jpg'
 	>>> num_tiles = 36
-	>>> tiles = split_image(file, num_tiles)
-	>>> save_tiles(tiles)
+	>>> tiles = image_slicer.split_image(file, num_tiles)
+	>>> image_slicer.save_tiles(tiles)
 
 ... or from the command line:
 
-::
+.. code-block:: console
+
 	$ slice-image fish.jpg 36
 
 `Further examples`_ can be found in the documentation_.
@@ -54,7 +55,7 @@ About
 
 This module was developed for collabart_, a web application to help you launch a collaborative art project.
 
-.. _Further examples: https://docs.readthedocs.org/examples
-.. _documentation: https://docs.readthedocs.org
+.. _Further examples: https://image-slicer.readthedocs.org/en/latest/examples/
+.. _documentation: https://image-slicer.readthedocs.org/en/latest/
 .. _collabart: http://www.collabart.com
 

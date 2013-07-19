@@ -4,10 +4,7 @@ import sys
 
 import image_slicer
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from distutils.core import setup
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
@@ -23,7 +20,7 @@ setup(
                      open('HISTORY.rst').read(),
     author='Sam Dobson',
     author_email='sjd333@gmail.com',
-    url='http://python-image-slicer.net',
+    url='https://github.com/samdobson/image_slicer',
     install_requires=requires,
     packages=['image_slicer', 'image_slicer.tests'],
     license=open('LICENSE').read(),
