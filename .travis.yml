@@ -3,7 +3,7 @@ python:
   - 2.7
   - 3.2
   - 3.3
-script: nosetests --with-coverage --cover-packages=image_slicer
+script: nosetests --with-coverage --cover-package=image_slicer
 install:
   - pip install -r requirements.txt --use-mirrors
   - pip install nose coveralls
