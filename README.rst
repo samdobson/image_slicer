@@ -9,6 +9,7 @@
 
 documentation_ | website_
 
+
 Image Slicer
 ============
 
@@ -26,6 +27,11 @@ Installation
 
 	$ pip install image_slicer
 
+*Python versions supported:*
+
+* 2.6+
+* 3.2+
+
 Usage
 -----
 
@@ -33,17 +39,17 @@ Slice an image with Python:
 
 .. code-block:: python
 
-	>>> import image_slicer
-	>>> file = 'fish.jpg'
-	>>> num_tiles = 36
-	>>> tiles = image_slicer.split_image(file, num_tiles)
-	>>> image_slicer.save_tiles(tiles)
+	import image_slicer
+	img = 'cake.jpg'
+	num_tiles = 36
+	tiles = image_slicer.split_image(img, num_tiles)
+	image_slicer.save_tiles(tiles)
 
 ... or from the command line:
 
 .. code-block:: bash
 
-	$ slice-image fish.jpg 36
+	$ slice-image cake.jpg 36
 
 `Further examples`_ can be found in the documentation_.
 
