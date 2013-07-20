@@ -1,4 +1,5 @@
 Examples
 --------
 
-Usage examples to come shortly...
+*Usage examples to follow...*
+

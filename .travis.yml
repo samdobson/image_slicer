@@ -6,7 +6,7 @@ python:
 script: nosetests --with-coverage --cover-package=image_slicer
 install:
   - pip install -r requirements.txt --use-mirrors
-  - pip install nose coveralls
+  - pip install nose coveralls --use-mirrors
   - pip install .
 after_success:
   - coveralls

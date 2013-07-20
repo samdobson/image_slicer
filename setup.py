@@ -1,16 +1,15 @@
 #!/usr/bin/env python
+
 import os
 import sys
 
 import image_slicer
 
-from distutils.core import setup
+try:
+        from setuptools import setup
+except ImportError:
+        from distutils.core import setup
 
-if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist upload')
-    sys.exit()
-
-requires = ['Pillow']
 
 setup(
     name='image_slicer',
@@ -20,13 +19,12 @@ setup(
                      open('HISTORY.rst').read(),
     author='Sam Dobson',
     author_email='sjd333@gmail.com',
-    url='https://github.com/samdobson/image_slicer',
-    install_requires=requires,
+    url='http://samdobson.github.io/image_slicer',
+    install_requires=['Pillow'],
     packages=['image_slicer', 'image_slicer.tests'],
     license=open('LICENSE').read(),
     zip_safe=False,
     scripts=['bin/slice-image', 'bin/join-tiles'],
-    tests_require=['nose'],
     classifiers=(
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
