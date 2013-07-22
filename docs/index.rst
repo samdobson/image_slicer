@@ -20,7 +20,7 @@ Development version:
 Compatibility
 -------------
 
-Tested with Python 2.7, 3.2, 3.3.
+Tested with Python 2.6, 2.7, 3.2 & 3.3.
 
 Dependencies
 ------------
@@ -57,6 +57,18 @@ Usage:
 
 Any of the tile images can be used as an argument - the others will be discovered automatically. Unless an output directory is specified with ``--dir`` or ``-d`` the image will be saved in the same location as the tiles. The prefix of the tiles will be used to save the image unless this is overridden with ``--filename`` or ``-f``.
 
+Splitting behaviour
+-------------------
+
+Methodology
+~~~~~~~~~~~
+
+Tiles are always split into exactly equal parts. If this means that more tiles than specified are required, they will be made. In future this behaviour will be overridable.
+
+Limitations
+~~~~~~~~~~~
+
+The maximum number of tiles that can be produced is 9800. This is an arbitrary limit enforced to keep numbering manageable. Its purpose is to ensure that row and column numbers can be conveniently represented by two digits.
 
 Indices and tables
 ==================

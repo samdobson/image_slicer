@@ -3,8 +3,6 @@
 import os
 import sys
 
-import image_slicer
-
 try:
         from setuptools import setup
 except ImportError:
@@ -13,14 +11,14 @@ except ImportError:
 
 setup(
     name='image_slicer',
-    version=image_slicer.__version__,
+    version='0.0.2',
     description='Cut images into tiles and reassemble them..',
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
     author='Sam Dobson',
     author_email='sjd333@gmail.com',
     url='http://samdobson.github.io/image_slicer',
-    install_requires=['Pillow'],
+    install_requires=['Pillow>=2.0.0'],
     packages=['image_slicer', 'image_slicer.tests'],
     license=open('LICENSE').read(),
     zip_safe=False,

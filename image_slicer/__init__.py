@@ -14,7 +14,7 @@ Chop up images. Merge them back together. Basic usage:
 """
 
 __title__ = 'image_slicer'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __author__ = 'Sam Dobson'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2013 Sam Dobson'
