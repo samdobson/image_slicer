@@ -19,21 +19,20 @@ class SaveOpenTest(unittest.TestCase):
         os.rmdir(TEST_DIR)
 
     def test_all_files_saved(self):
-        save_tiles(self.tiles, prefix='x', directory=TEST_DIR, format='gif')
+        save_tiles(self.tiles, prefix='x', directory=TEST_DIR, ext='gif')
         self.assertEqual(sorted(os.listdir(TEST_DIR)),
-                ['x01_01.gif', 'x01_02.gif', 'x01_03.gif', 'x01_04.gif',
-                 'x02_01.gif', 'x02_02.gif', 'x02_03.gif', 'x02_04.gif',
-                 'x03_01.gif', 'x03_02.gif', 'x03_03.gif', 'x03_04.gif',
-                 'x04_01.gif', 'x04_02.gif', 'x04_03.gif', 'x04_04.gif',
-                 'x05_01.gif', 'x05_02.gif', 'x05_03.gif', 'x05_04.gif']
+ ['x_01_01.gif', 'x_01_02.gif', 'x_01_03.gif', 'x_01_04.gif', 'x_01_05.gif',
+  'x_02_01.gif', 'x_02_02.gif', 'x_02_03.gif', 'x_02_04.gif', 'x_02_05.gif',
+  'x_03_01.gif', 'x_03_02.gif', 'x_03_03.gif', 'x_03_04.gif', 'x_03_05.gif',
+  'x_04_01.gif', 'x_04_02.gif', 'x_04_03.gif', 'x_04_04.gif', 'x_04_05.gif']
         )
 
 
 class GeneralTest(unittest.TestCase):
 
     def test_get_columns_rows_filenames(self):
-        filenames = ['abc01_01.jpg', 'abc01_02.jpg',
-                     'abc02_01.jpg', 'abc02_02.jpg'
+        filenames = ['abc_01_01.jpg', 'abc_01_02.jpg',
+                     'abc_02_01.jpg', 'abc_02_02.jpg'
                     ]
         self.assertEqual(get_columns_rows(filenames), (2, 2))
 
@@ -75,10 +74,13 @@ class GeneralTest(unittest.TestCase):
 class SplitTest(unittest.TestCase):
 
     def setUp(self):
-        self.tiles = split_image(TEST_IMAGE, NUM_TILES)
+        self.tiles = split_image(TEST_IMAGE, NUM_TILES, save=False)
 
-    def test_validation(self):
-        self.assertRaises(IOError, Image.open, 'wrong-filename.jpg')
+    def test_validate_image(self):
+        for bad_argument in (-1, 0, 1, 12000, 'string'):
+            with self.assertRaises(ValueError):
+                validate_image(TEST_IMAGE, bad_argument)
+                print("{0} didn't throw an exception".format(bad_argument))
 
     def test_num_tiles_generated(self):
         rows, columns = calc_columns_rows(NUM_TILES)
@@ -107,14 +109,15 @@ class IntegrationTest(unittest.TestCase):
 
     def setUp(self):
         self.original = Image.open(TEST_IMAGE)
-        self.reconstituted = join_tiles(split_image(TEST_IMAGE, NUM_TILES))
+        self.reconstituted = join_tiles(split_image(TEST_IMAGE, NUM_TILES,
+                                                    save=False))
 
     def test_image_size_equality(self):
         width_difference = abs(self.original.size[0] -\
                                self.reconstituted.size[0])
         height_difference = abs(self.original.size[1] -\
                                 self.reconstituted.size[1])
-        THRESHOLD = 2 # Pixels standard deviation.
+        THRESHOLD = 2 # Error margin (px).
         self.assertTrue(width_difference <= THRESHOLD,
                        'Width is {0} pixels out'.format(width_difference))
         self.assertTrue(height_difference <= THRESHOLD,
@@ -125,7 +128,7 @@ class IntegrationTest(unittest.TestCase):
         bad_pixels = len(set(self.original.histogram()) ^\
                          set(self.reconstituted.histogram()))
         accuracy = 1 - (float(bad_pixels) / float(total_pixels))
-        THRESHOLD = 0.999 # 99.9% accuracy.
+        THRESHOLD = 0.999
         self.assertTrue(accuracy > THRESHOLD,
                   'Images are only {0:.2f}% similar'.format(accuracy * 100))
 

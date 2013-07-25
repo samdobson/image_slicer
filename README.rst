@@ -42,8 +42,7 @@ Slice an image with Python:
 	import image_slicer
 	img = 'cake.jpg'
 	num_tiles = 36
-	tiles = image_slicer.split_image(img, num_tiles)
-	image_slicer.save_tiles(tiles)
+	image_slicer.split_image(img, num_tiles)
 
 ... or from the command line:
 
@@ -52,6 +51,14 @@ Slice an image with Python:
 	$ slice-image cake.jpg 36
 
 `Further examples`_ can be found in the documentation_.
+
+Used by
+-------
+
+* split-image.net
+* puzzle-shifter.net
+* reveal-image.net
+* collab-art.net
 
 About
 -----

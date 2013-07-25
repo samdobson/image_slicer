@@ -1,3 +1,13 @@
+0.1.0 (07/28/2013)
+------------------
+
+* ``split_image()`` now saves tiles by default.
+* ``get_prefix()`` can now handle paths.
+* More comprehensive validation in ``validate_image()``.
+* Fix incorrect filenames returned by ``save_tiles()``.
+* Expand documentation.
+* Improve test coverage.
+
 0.0.2 (07/23/2013)
 ------------------
 

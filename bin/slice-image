@@ -17,7 +17,7 @@ def construct_parser():
 	"""Return an ArgumentParser."""
 	parser = argparse.ArgumentParser(prog='slice-image',
 					 description='Slice an image into tiles.',
-					 epilog='Happy slicing!',
+					 epilog='Report bugs and make feature requests at https://github.com/samdobson/image_slicer/issues',
 					 add_help=False
 		 )
 

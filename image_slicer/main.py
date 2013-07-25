@@ -1,37 +1,23 @@
-import sys
-import time
+'''
+Main functionality of ``image_slicer``.
+'''
 import os
-import random
 from math import sqrt, ceil
 
 from PIL import Image
 
+from .helpers import get_basename
 
-def get_prefix(filename):
-    """Strip extension to leave only the filename."""
-    return os.path.splitext(filename)[0]
-
-def open_images(directory):
-    """Open all images in a directory. Return tuple of Image instances."""
-    return [Image.open(file) for file in os.listdir(directory)]
 
 def calc_columns_rows(n):
     """
-    Use integer ``n`` to calculate the number of columns and rows required.
+    Calculate the number of columns and rows required to divide an image
+    into ``n`` parts.
+
     Return a tuple of integers in the format (num_columns, num_rows)
     """
     num_columns = int(ceil(sqrt(n)))
     num_rows = int(ceil(n / float(num_columns)))
-    return (num_columns, num_rows)
-
-def get_columns_rows(filenames):
-    """Derive number of columns and rows from filenames."""
-    tiles = []
-    for filename in filenames:
-        row, column = os.path.splitext(filename)[0][-5:].split('_')
-        tiles.append((int(row), int(column)))
-    rows = [pos[0] for pos in tiles]; columns = [pos[1] for pos in tiles]
-    num_rows = max(rows); num_columns = max(columns)
     return (num_columns, num_rows)
 
 def get_combined_size(tiles):
@@ -53,18 +39,31 @@ def join_tiles(tiles):
     return im
 
 def validate_image(image, num_tiles):
-    """Basic sanity checks before performing a split."""
-    # TODO: Needs tests.
+    """Basic sanity checks prior to performing a split."""
     TILE_LIMIT = 99 * 99
-    if num_tiles > TILE_LIMIT:
-        raise ValueError('Maximum number of tiles: {0}'.format(TILE_LIMIT))
+    if num_tiles > TILE_LIMIT or num_tiles < 2:
+        raise ValueError('Number of tiles must be between 2 and {0} (you \
+                          asked for {1}).'.format(TILE_LIMIT, num_tiles))
 
-def split_image(filename, num_tiles):
+def split_image(filename, num_tiles, save=True):
     """
     Split an image into a specified number of tiles.
-    Return a tuple of ``_ImageCrop`` instances.
+
+    Args:
+       filename (str):  The filename of the image to split.
+       num_tiles (int):  The number of tiles required.
+
+    Kwargs:
+       save (bool): Whether or not to save tiles to disk.
+
+    Returns:
+        *if ``save=True`` (default):*
+            Tuple of filenames of the saved tiles.
+        *if ``save=False``:*
+            Tuple of ``Image`` instances.
     """
     # Needs tests.
+    basename = get_basename(filename)
     im = Image.open(filename)
     validate_image(im, num_tiles)
 
@@ -83,17 +82,21 @@ def split_image(filename, num_tiles):
             tile.position = (pos_x, pos_y)
             tiles.append(tile)
             num += 1
+#    if save:
+#        return save_tiles(tiles, prefix=basename)
     return tiles
 
-def save_tiles(tiles, prefix='', directory='./', format='png'):
+def save_tiles(tiles, prefix='', directory='.', ext='png'):
     """Write image files to disk."""
-    filenames = list()
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    tile_filenames = []
     for tile in tiles:
         row, column = tile.id[0], tile.id[1]
-        filename = prefix + '%02d_%02d.%s' % (row, column, format)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        tile.save(os.path.join(directory, filename))
-        filenames.append(filename)
-    return filenames
+        filename = os.path.join(directory, prefix +\
+                                '_{col:02d}_{row:02d}.{ext}'.format(
+                                col=column, row=row, ext=ext))
+        tile.save(filename)
+        tile_filenames.append(filename)
+    return tile_filenames
 
