@@ -82,8 +82,8 @@ def split_image(filename, num_tiles, save=True):
             tile.position = (pos_x, pos_y)
             tiles.append(tile)
             num += 1
-#    if save:
-#        return save_tiles(tiles, prefix=basename)
+    if save:
+        save_tiles(tiles, prefix=basename)
     return tiles
 
 def save_tiles(tiles, prefix='', directory='.', ext='png'):
