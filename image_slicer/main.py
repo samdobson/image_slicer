@@ -9,6 +9,52 @@ from PIL import Image
 from .helpers import get_basename
 
 
+class Tile(object):
+    """Represents a single tile."""
+
+    def __init__(self, image, number, position, coords, filename=None):
+        self.image = image
+        self.number = number
+        self.position = position
+        self.coords = coords
+        self.filename = filename
+
+    @property
+    def row(self):
+        return self.position[0]
+
+    @property
+    def column(self):
+        return self.position[1]
+
+    @property
+    def basename(self):
+        """Strip path and extension. Return base filename."""
+        return get_basename(self.filename)
+
+    def generate_filename(self, directory=os.getcwd(), prefix='tile',
+                          format='png', path=True):
+        """Construct and return a filename for this tile."""
+        filename = prefix + '_{col:02d}_{row:02d}.{ext}'.format(
+                      col=self.column, row=self.row, ext=format)
+        if not path:
+            return filename
+        return os.path.join(directory, filename)
+
+    def save(self, filename=None, format='png'):
+        if not filename:
+            filename = self.generate_filename(format=format)
+        self.image.save(filename, format)
+        self.filename = filename
+
+    def __repr__(self):
+        """Show tile number, and if saved to disk, filename."""
+        if self.filename:
+            return '<Tile #{} - {}>'.format(self.number,
+                                            os.path.basename(self.filename))
+        return '<Tile #{}>'.format(self.number)
+
+
 def calc_columns_rows(n):
     """
     Calculate the number of columns and rows required to divide an image
@@ -24,7 +70,7 @@ def get_combined_size(tiles):
     """Calculate combined size of tiles."""
     # TODO: Refactor calculating layout to avoid repetition.
     columns, rows = calc_columns_rows(len(tiles))
-    tile_size = tiles[0].size
+    tile_size = tiles[0].image.size
     return (tile_size[0] * columns, tile_size[1] * rows)
 
 def join_tiles(tiles):
@@ -35,68 +81,63 @@ def join_tiles(tiles):
     im = Image.new('RGB', get_combined_size(tiles), None)
     columns, rows = calc_columns_rows(len(tiles))
     for tile in tiles:
-        im.paste(tile, tile.position)
+        im.paste(tile.image, tile.coords)
     return im
 
-def validate_image(image, num_tiles):
+def validate_image(image, number_tiles):
     """Basic sanity checks prior to performing a split."""
     TILE_LIMIT = 99 * 99
-    if num_tiles > TILE_LIMIT or num_tiles < 2:
+    if number_tiles > TILE_LIMIT or number_tiles < 2:
         raise ValueError('Number of tiles must be between 2 and {0} (you \
-                          asked for {1}).'.format(TILE_LIMIT, num_tiles))
+                          asked for {1}).'.format(TILE_LIMIT, number_tiles))
 
-def split_image(filename, num_tiles, save=True):
+def slice(filename, number_tiles, save=True):
     """
     Split an image into a specified number of tiles.
 
     Args:
        filename (str):  The filename of the image to split.
-       num_tiles (int):  The number of tiles required.
+       number_tiles (int):  The number of tiles required.
 
     Kwargs:
        save (bool): Whether or not to save tiles to disk.
 
     Returns:
-        *if ``save=True`` (default):*
-            Tuple of filenames of the saved tiles.
-        *if ``save=False``:*
-            Tuple of ``Image`` instances.
+        Tuple of :class:`Tile` instances.
     """
     # Needs tests.
-    basename = get_basename(filename)
     im = Image.open(filename)
-    validate_image(im, num_tiles)
+    validate_image(im, number_tiles)
 
     im_w, im_h = im.size
-    columns, rows = calc_columns_rows(num_tiles)
-    extras = (columns * rows) - num_tiles
+    columns, rows = calc_columns_rows(number_tiles)
+    extras = (columns * rows) - number_tiles
     tile_w, tile_h = int(im_w / columns), int(im_h / rows)
 
     tiles = []
-    num = 1
+    number = 1
     for pos_y in range(0, im_h - rows, tile_h): # -rows for rounding error.
         for pos_x in range(0, im_w - columns, tile_w): # as above.
             area = (pos_x, pos_y, pos_x + tile_w, pos_y + tile_h)
-            tile = im.crop(area)
-            tile.id = ((pos_x / tile_w) + 1, (pos_y / tile_h) + 1)
-            tile.position = (pos_x, pos_y)
+            image = im.crop(area)
+            position = ((pos_x / tile_w) + 1, (pos_y / tile_h) + 1)
+            coords = (pos_x, pos_y)
+            tile = Tile(image, number, position, coords)
             tiles.append(tile)
-            num += 1
+            number += 1
     if save:
-        save_tiles(tiles, prefix=basename)
-    return tiles
+        save_tiles(tiles,
+                   prefix=get_basename(filename),
+                   directory=os.path.dirname(filename))
+    return tuple(tiles)
 
-def save_tiles(tiles, prefix='', directory='.', ext='png'):
+def save_tiles(tiles, prefix='', directory='.', format='png'):
     """Write image files to disk."""
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    tile_filenames = []
+#    if not os.path.exists(directory):
+#        os.makedirs(directory)
     for tile in tiles:
-        row, column = tile.id[0], tile.id[1]
-        filename = os.path.join(directory, prefix +\
-                                '_{col:02d}_{row:02d}.{ext}'.format(
-                                col=column, row=row, ext=ext))
-        tile.save(filename)
-        tile_filenames.append(filename)
-    return tile_filenames
+        tile.save(filename=tile.generate_filename(prefix=prefix,
+                                                  directory=directory,
+                                                  format=format))
+    return tiles
 

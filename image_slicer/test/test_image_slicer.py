@@ -5,12 +5,13 @@ from image_slicer import *
 
 TEST_IMAGE = os.path.join(os.path.dirname(__file__), 'sample.jpg')
 TEST_DIR = os.path.join(os.path.dirname(__file__), 'test_output')
-NUM_TILES = 20
+NUMBER_TILES = 20
+
 
 class SaveOpenTest(unittest.TestCase):
 
     def setUp(self):
-        self.tiles = split_image(TEST_IMAGE, NUM_TILES)
+        self.tiles = slice(TEST_IMAGE, NUMBER_TILES, save=False)
         os.mkdir(TEST_DIR)
 
     def tearDown(self):
@@ -19,7 +20,7 @@ class SaveOpenTest(unittest.TestCase):
         os.rmdir(TEST_DIR)
 
     def test_all_files_saved(self):
-        save_tiles(self.tiles, prefix='x', directory=TEST_DIR, ext='gif')
+        save_tiles(self.tiles, prefix='x', directory=TEST_DIR, format='gif')
         self.assertEqual(sorted(os.listdir(TEST_DIR)),
  ['x_01_01.gif', 'x_01_02.gif', 'x_01_03.gif', 'x_01_04.gif', 'x_01_05.gif',
   'x_02_01.gif', 'x_02_02.gif', 'x_02_03.gif', 'x_02_04.gif', 'x_02_05.gif',
@@ -74,7 +75,7 @@ class GeneralTest(unittest.TestCase):
 class SplitTest(unittest.TestCase):
 
     def setUp(self):
-        self.tiles = split_image(TEST_IMAGE, NUM_TILES, save=False)
+        self.tiles = slice(TEST_IMAGE, NUMBER_TILES, save=False)
 
     def test_validate_image(self):
         for bad_argument in (-1, 0, 1, 12000, 'string'):
@@ -82,17 +83,17 @@ class SplitTest(unittest.TestCase):
                 validate_image(TEST_IMAGE, bad_argument)
                 print("{0} didn't throw an exception".format(bad_argument))
 
-    def test_num_tiles_generated(self):
-        rows, columns = calc_columns_rows(NUM_TILES)
-        num_tiles_generated = rows * columns
-        self.assertEqual(len(self.tiles), num_tiles_generated)
+    def test_number_tiles_generated(self):
+        rows, columns = calc_columns_rows(NUMBER_TILES)
+        number_tiles_generated = rows * columns
+        self.assertEqual(len(self.tiles), number_tiles_generated)
 
     def test_tiles_are_images(self):
-        self.assertTrue(all(tile.__class__.__name__ == '_ImageCrop')\
+        self.assertTrue(all(tile.image.__class__.__name__ == '_ImageCrop')\
                             for tile in self.tiles)
 
     def test_tile_size_equality(self):
-        tile_sizes = (tile.size for tile in self.tiles)
+        tile_sizes = (tile.image.size for tile in self.tiles)
         self.assertTrue(len(set(tile_sizes)) <= 1)
 
 """
@@ -109,7 +110,7 @@ class IntegrationTest(unittest.TestCase):
 
     def setUp(self):
         self.original = Image.open(TEST_IMAGE)
-        self.reconstituted = join_tiles(split_image(TEST_IMAGE, NUM_TILES,
+        self.reconstituted = join_tiles(slice(TEST_IMAGE, NUMBER_TILES,
                                                     save=False))
 
     def test_image_size_equality(self):

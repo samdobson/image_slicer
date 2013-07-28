@@ -3,8 +3,9 @@ Helper functions for ``image_slicer``.
 '''
 import os
 
+
 def get_basename(filename):
-    """Strip path and extension. Return base filename."""
+    """Strip path and extension. Return basename."""
     return os.path.splitext(os.path.basename(filename))[0]
 
 def open_images(directory):
