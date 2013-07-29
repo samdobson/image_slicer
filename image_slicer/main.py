@@ -2,7 +2,7 @@
 Main functionality of ``image_slicer``.
 '''
 import os
-from math import sqrt, ceil
+from math import sqrt, ceil, floor
 
 from PIL import Image
 
@@ -107,12 +107,16 @@ def slice(filename, number_tiles, save=True):
     """
     # Needs tests.
     im = Image.open(filename)
+    try:
+        number_tiles = int(number_tiles)
+    except:
+        raise ValueError('number_tiles could not be cast to integer.')
     validate_image(im, number_tiles)
 
     im_w, im_h = im.size
     columns, rows = calc_columns_rows(number_tiles)
     extras = (columns * rows) - number_tiles
-    tile_w, tile_h = int(im_w / columns), int(im_h / rows)
+    tile_w, tile_h = int((floor(im_w / columns)), int(floor(im_h / rows))
 
     tiles = []
     number = 1
@@ -120,7 +124,8 @@ def slice(filename, number_tiles, save=True):
         for pos_x in range(0, im_w - columns, tile_w): # as above.
             area = (pos_x, pos_y, pos_x + tile_w, pos_y + tile_h)
             image = im.crop(area)
-            position = ((pos_x / tile_w) + 1, (pos_y / tile_h) + 1)
+            position = (int(floor((pos_x / tile_w))) + 1,
+                        int(floor((pos_y / tile_h))) + 1)
             coords = (pos_x, pos_y)
             tile = Tile(image, number, position, coords)
             tiles.append(tile)
@@ -131,13 +136,26 @@ def slice(filename, number_tiles, save=True):
                    directory=os.path.dirname(filename))
     return tuple(tiles)
 
-def save_tiles(tiles, prefix='', directory='.', format='png'):
-    """Write image files to disk."""
-#    if not os.path.exists(directory):
-#        os.makedirs(directory)
+def save_tiles(tiles, prefix='', directory=os.getcwd(), format='png'):
+    """
+    Write image files to disk. Create specified folder(s) if they
+       don't exist. Return list of :class:`Tile` instance.
+
+    Args:
+       tiles (list):  List, tuple or set of :class:`Tile` objects to save.
+       prefix (str):  Filename prefix of saved tiles.
+
+    Kwargs:
+       directory (str):  Directory to save tiles. Created if non-existant.
+
+    Returns:
+        Tuple of :class:`Tile` instances.
+    """
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     for tile in tiles:
         tile.save(filename=tile.generate_filename(prefix=prefix,
                                                   directory=directory,
                                                   format=format))
-    return tiles
+    return tuple(tiles)
 
