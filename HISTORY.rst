@@ -1,8 +1,9 @@
-0.1.0 (07/28/2013)
-------------------
+0.1.0 (coming soon)
+-------------------
 
+* New ``Tile`` class.
 * ``split_image()`` now saves tiles by default.
-* ``get_prefix()`` can now handle paths.
+* ``get_basename()`` can now handle paths.
 * More comprehensive validation in ``validate_image()``.
 * Fix incorrect filenames returned by ``save_tiles()``.
 * Expand documentation.

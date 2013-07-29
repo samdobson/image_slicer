@@ -1,3 +1,4 @@
+from __future__ import with_statement
 import unittest
 
 from image_slicer import *
@@ -78,7 +79,7 @@ class SplitTest(unittest.TestCase):
         self.tiles = slice(TEST_IMAGE, NUMBER_TILES, save=False)
 
     def test_validate_image(self):
-        for bad_argument in (-1, 0, 1, 12000, 'string'):
+        for bad_argument in (-1, 0, 1, 12000):
             with self.assertRaises(ValueError):
                 validate_image(TEST_IMAGE, bad_argument)
                 print("{0} didn't throw an exception".format(bad_argument))

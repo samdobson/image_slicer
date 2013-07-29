@@ -87,9 +87,15 @@ def join_tiles(tiles):
 def validate_image(image, number_tiles):
     """Basic sanity checks prior to performing a split."""
     TILE_LIMIT = 99 * 99
+
+    try:
+        number_tiles = int(number_tiles)
+    except:
+        raise ValueError('number_tiles could not be cast to integer.')
+
     if number_tiles > TILE_LIMIT or number_tiles < 2:
-        raise ValueError('Number of tiles must be between 2 and {0} (you \
-                          asked for {1}).'.format(TILE_LIMIT, number_tiles))
+        raise ValueError('Number of tiles must be between 2 and {} (you \
+                          asked for {}).'.format(TILE_LIMIT, number_tiles))
 
 def slice(filename, number_tiles, save=True):
     """
@@ -105,12 +111,7 @@ def slice(filename, number_tiles, save=True):
     Returns:
         Tuple of :class:`Tile` instances.
     """
-    # Needs tests.
     im = Image.open(filename)
-    try:
-        number_tiles = int(number_tiles)
-    except:
-        raise ValueError('number_tiles could not be cast to integer.')
     validate_image(im, number_tiles)
 
     im_w, im_h = im.size
