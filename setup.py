@@ -11,7 +11,7 @@ except ImportError:
 
 setup(
     name='image_slicer',
-    version='0.1.0',
+    version='0.2.0-dev',
     description='Cut images into tiles and reassemble them..',
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
