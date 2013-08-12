@@ -16,10 +16,9 @@ Save tiles to the same directory as the image using the original filename as a p
 Control tile saving
 ~~~~~~~~~~~~~~~~~~~
 
-Need more control over saving? Pass ``save=False`` and then use :function:`image_slicer.main.save_tiles`:
+Need more control over saving? Pass ``save=False`` and then use :py:func:`~image_slicer.main.save_tiles`:
 
 .. code-block:: python
-   :emphasize-lines: 3,4
 
 	>>> import image_slicer
 	>>> tiles = image_slicer.slice('cake.jpg', 4, save=False)
@@ -30,10 +29,9 @@ Need more control over saving? Pass ``save=False`` and then use :function:`image
 Processing tile images
 ~~~~~~~~~~~~~~~~~~~~~~
 
-You can perform further processing of the images in between calling :function:`image_slicer.main.slice` and :function:`image_slicer.main.save_tiles`. The PIL ``Image`` object can be accessed with ``Tile.image``. Let's overlay the tile number on each tile:
+You can perform further processing of the images in between calling :py:func:`~image_slicer.main.slice` and py:func:`~image_slicer.main.save_tiles`. The PIL ``Image`` object can be accessed with ``Tile.image``. Let's overlay the tile number on each tile:
 
 .. code-block:: python
-   :emphasize-lines: 7-10
 
 	import image_slicer
 	from PIL import ImageDraw, ImageFont
@@ -51,16 +49,13 @@ You can perform further processing of the images in between calling :function:`i
 Keep it in memory
 ~~~~~~~~~~~~~~~~~
 
-If the tile image files are not the final product and performance is a concern, consider using :py:module:`cStringIO` to create file-like objects instead of saving each of the files to disk. Let's use the :py:module:`zipfile` module to create a zip archive, ``'tiles.zip'``:
+If the tile image files are not the final product and performance is a concern, consider using :py:class:`BytesIO` to create file-like objects instead of saving each of the files to disk. Let's use the :ref:`zipfile <python:zipfile>` module to create a zip archive, ``'tiles.zip'``:
 
 *Example courtesy of `slice-image.net`_*
 
 .. code-block:: python
 
-	try:
-	    from cStringIO import StringIO # Python 2
-	except ImportError:
-	    from io import BytesIO as StringIO # Python 3
+	import io
 	import zipfile
 
 	import image_slicer
@@ -70,7 +65,7 @@ If the tile image files are not the final product and performance is a concern, 
 
         with zipfile.ZipFile('tiles.zip', 'w') as zip:
             for tile in tiles:
-		with StringIO() as data:
+		with io.BytesIO() as data:
 		    tile.save(data)
 		    zip.writestr(tile.generate_filename(path=False),
 		    		 data.getvalue())

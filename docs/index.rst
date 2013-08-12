@@ -1,3 +1,5 @@
+.. module:: image_slicer
+
 Image Slicer
 ============
 
@@ -12,9 +14,17 @@ Slice images into tiles and rejoin them. Compatible with **Python 2.6+, 3.2+**. 
 Installation
 ------------
 
+To download and install the latest release:
+
 .. code-block:: bash
 
 	$ pip install image_slicer
+
+Or, for developers, to get the bleeding-edge, unreleased version:
+
+.. code-block:: bash
+
+	$ pip install -e git://github.com/samdobson/image-slicer.git#egg=image-slicer
 
 Run tests:
 
