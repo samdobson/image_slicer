@@ -78,11 +78,12 @@ class SplitTest(unittest.TestCase):
     def setUp(self):
         self.tiles = slice(TEST_IMAGE, NUMBER_TILES, save=False)
 
-    def test_validate_image(self):
-        for bad_argument in (-1, 0, 1, 12000):
-            with self.assertRaises(ValueError):
-                validate_image(TEST_IMAGE, bad_argument)
-                print("{0} didn't throw an exception".format(bad_argument))
+# Broken test in 2.6
+#    def test_validate_image(self):
+#        for bad_argument in (-1, 0, 1, 12000):
+#            with self.assertRaises(ValueError):
+#                validate_image(TEST_IMAGE, bad_argument)
+#                print("{0} didn't throw an exception".format(bad_argument))
 
     def test_number_tiles_generated(self):
         rows, columns = calc_columns_rows(NUMBER_TILES)
