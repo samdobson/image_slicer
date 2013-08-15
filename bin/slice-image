@@ -2,15 +2,15 @@
 
 import sys
 import argparse
-from image_slicer import split_image, save_tiles, get_prefix
+from image_slicer import slice, save_tiles, get_basename
 
 
 def main():
 	"""Parse arguments and slice image."""
 	parser = construct_parser()
 	args = parser.parse_args()
-	tiles = split_image(args.image, args.num_tiles)
-	save_tiles(tiles, prefix=get_prefix(args.image), directory=args.dir,
+	tiles = slice(args.image, args.num_tiles)
+	save_tiles(tiles, prefix=get_basename(args.image), directory=args.dir,
 		   format=args.format)
 
 def construct_parser():

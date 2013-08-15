@@ -2,12 +2,12 @@
 
 import sys
 import argparse
-from image_slicer import join_tiles, open_images_in
+from image_slicer import join, open_images_in
 
 
 parser = argparse.ArgumentParser(prog='join-tiles',
 				 description='Join tiles together.',
-				 epilog='Happy joining!'
+			     epilog='Report bugs and make feature requests at https://github.com/samdobson/image_slicer/issues',
 	 )
 parser.add_argument('-d', '--dir', help='directory containing tiles')
 parser.add_argument('-f', '--format',

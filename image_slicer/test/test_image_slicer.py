@@ -102,7 +102,7 @@ class SplitTest(unittest.TestCase):
 class JoinTest(unittest.TestCase):
 
     def setUp(self):
-        self.image = join_tiles(open_images(TEST_DIR))
+        self.image = join(open_images(TEST_DIR))
 
     def test_single_image_created(self):
         self.assertTrue(self.im.__class__.__name__ == 'Image')
@@ -112,7 +112,7 @@ class IntegrationTest(unittest.TestCase):
 
     def setUp(self):
         self.original = Image.open(TEST_IMAGE)
-        self.reconstituted = join_tiles(slice(TEST_IMAGE, NUMBER_TILES,
+        self.reconstituted = join(slice(TEST_IMAGE, NUMBER_TILES,
                                                     save=False))
 
     def test_image_size_equality(self):

@@ -73,7 +73,7 @@ def get_combined_size(tiles):
     tile_size = tiles[0].image.size
     return (tile_size[0] * columns, tile_size[1] * rows)
 
-def join_tiles(tiles):
+def join(tiles):
     """
     @param ``tiles`` - Tuple of ``Image`` instances.
     @return ``Image`` instance.
@@ -152,8 +152,9 @@ def save_tiles(tiles, prefix='', directory=os.getcwd(), format='png'):
     Returns:
         Tuple of :class:`Tile` instances.
     """
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+#    Causes problems in CLI script.
+#    if not os.path.exists(directory):
+#        os.makedirs(directory)
     for tile in tiles:
         tile.save(filename=tile.generate_filename(prefix=prefix,
                                                   directory=directory,

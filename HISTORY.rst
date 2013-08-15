@@ -1,4 +1,10 @@
-0.1.0 (coming soon)
+0.1.1 (15/08/2013)
+-------------------
+
+* Fix ``slice-image`` script.
+* Rename ``join_tiles()`` to ``join()``.
+
+0.1.0 (12/08/2013)
 -------------------
 
 * New ``Tile`` class.
