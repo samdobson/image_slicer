@@ -55,18 +55,16 @@ Slice an image with Python:
 Used by
 -------
 
-* split-image.net
-* puzzle-shifter.net
-* reveal-image.net
-* collab-art.net
+* splitimag.es_
+* *collabart* (coming soon)
 
 About
 -----
 
-This module was developed for collabart_, a web application to help you launch a collaborative art project.
+This module was developed for *collabart*, a web application for launching collaborative art projects.
 
+.. _splitimag.es: http://splitimag.es
 .. _Further examples: https://image-slicer.readthedocs.org/en/latest/examples/
 .. _documentation: https://image-slicer.readthedocs.org/en/latest/
 .. _website: http://samdobson.github.io/image_slicer
-.. _collabart: http://www.collabart.com
 
