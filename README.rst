@@ -1,6 +1,10 @@
 .. image:: https://badge.fury.io/py/image_slicer.png
     :target: http://badge.fury.io/py/image_slicer
 
+.. image :: https://pypip.in/d/image_slicer/badge.png
+    :target: https://crate.io/packages/image_slicer
+    :alt: Downloads
+
 .. image:: https://secure.travis-ci.org/samdobson/image_slicer.png
     :target: http://travis-ci.org/samdobson/image_slicer
 
