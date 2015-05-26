@@ -97,7 +97,7 @@ def validate_image(image, number_tiles):
         raise ValueError('Number of tiles must be between 2 and {} (you \
                           asked for {}).'.format(TILE_LIMIT, number_tiles))
 
-def slice(filename, number_tiles, save=True):
+def slice(filename, number_tiles, save=False):
     """
     Split an image into a specified number of tiles.
 
@@ -158,6 +158,7 @@ def save_tiles(tiles, prefix='', directory=os.getcwd(), format='png'):
     for tile in tiles:
         tile.save(filename=tile.generate_filename(prefix=prefix,
                                                   directory=directory,
-                                                  format=format))
+                                                  format=format),
+                                                  format=format)
     return tuple(tiles)
 
