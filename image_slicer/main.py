@@ -97,7 +97,7 @@ def validate_image(image, number_tiles):
         raise ValueError('Number of tiles must be between 2 and {} (you \
                           asked for {}).'.format(TILE_LIMIT, number_tiles))
 
-def slice(filename, number_tiles, save=True):
+def slice(filename, number_tiles, columns_only=False, rows_only=False, save=True):
     """
     Split an image into a specified number of tiles.
 
@@ -115,7 +115,17 @@ def slice(filename, number_tiles, save=True):
     validate_image(im, number_tiles)
 
     im_w, im_h = im.size
-    columns, rows = calc_columns_rows(number_tiles)
+    if columns_only or rows_only:
+        if columns_only and rows_only:
+            raise ValueError('ERROR: Cannot declare both columns_only and rows_only')
+        if columns_only:
+            rows = 1
+            columns = number_tiles
+        if rows_only:
+            columns = 1
+            rows = number_tiles
+    else:
+        columns, rows = calc_columns_rows(number_tiles)
     extras = (columns * rows) - number_tiles
     tile_w, tile_h = int(floor(im_w / columns)), int(floor(im_h / rows))
 
