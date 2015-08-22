@@ -6,42 +6,44 @@ from image_slicer import slice, save_tiles, get_basename
 
 
 def main():
-	"""Parse arguments and slice image."""
-	parser = construct_parser()
-	args = parser.parse_args()
-	tiles = slice(args.image, args.num_tiles)
-	save_tiles(tiles, prefix=get_basename(args.image), directory=args.dir,
-		   format=args.format)
+    """Parse arguments and slice image."""
+    parser = construct_parser()
+    args = parser.parse_args()
+    tiles = slice(args.image, args.num_tiles, args.columns_only, args.rows_only)
+    save_tiles(tiles, prefix=get_basename(args.image), directory=args.dir,
+            format=args.format)
 
 def construct_parser():
-	"""Return an ArgumentParser."""
-	parser = argparse.ArgumentParser(prog='slice-image',
-					 description='Slice an image into tiles.',
-					 epilog='Report bugs and make feature requests at https://github.com/samdobson/image_slicer/issues',
-					 add_help=False
-		 )
+    """Return an ArgumentParser."""
+    parser = argparse.ArgumentParser(prog='slice-image',
+            description='Slice an image into tiles.',
+            epilog='Report bugs and make feature requests at https://github.com/samdobson/image_slicer/issues',
+            add_help=False
+            )
 
-	required = parser.add_argument_group('Required Arguments')
-	required.add_argument('image', help='image file')
-	required.add_argument('num_tiles', type=int,
-			      help='number of tiles to make')
+    required = parser.add_argument_group('Required Arguments')
+    required.add_argument('image', help='image file')
+    required.add_argument('num_tiles', type=int,
+            help='number of tiles to make')
 
-	optional = parser.add_argument_group('Optional Arguments')
-	optional.add_argument('-d', '--dir', default='./',
-			      help='output directory')
-	optional.add_argument('-f', '--format', default='png',
-			      help='output image format (e.g JPG, PNG, GIF)')
-	#parser.add_argument('-e', '--exact', action='store_true',
-	#		    help='Enlarge some tiles to produce the exact number')
+    optional = parser.add_argument_group('Optional Arguments')
+    optional.add_argument('-d', '--dir', default='./',
+            help='output directory')
+    optional.add_argument('-f', '--format', default='png',
+            help='output image format (e.g JPG, PNG, GIF)')
+    optional.add_argument('-c', dest='columns_only', action='store_true')
+    optional.add_argument('-r', dest='rows_only', action='store_true')
+    #parser.add_argument('-e', '--exact', action='store_true',
+    #		    help='Enlarge some tiles to produce the exact number')
 
-	info = parser.add_argument_group('Info')
-	info.add_argument('-h', '--help', action='help',
-			  help='display this screen'),
-	info.add_argument('-v', '--version', action='version',
-			  version='%(prog)s 0.2')
+    info = parser.add_argument_group('Info')
+    info.add_argument('-h', '--help', action='help',
+            help='display this screen'),
+    info.add_argument('-v', '--version', action='version',
+            version='%(prog)s 0.2')
 
-	return parser
+    return parser
 
 if __name__ == '__main__':
-	main()
+    main()
 
