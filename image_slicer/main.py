@@ -102,7 +102,7 @@ def slice(filename, number_tiles, save=True):
     Split an image into a specified number of tiles.
 
     Args:
-       filename (str):  The filename of the image to split.
+       filename (str|Image):  The filename of the image to split.
        number_tiles (int):  The number of tiles required.
 
     Kwargs:
@@ -111,7 +111,11 @@ def slice(filename, number_tiles, save=True):
     Returns:
         Tuple of :class:`Tile` instances.
     """
-    im = Image.open(filename)
+    try:
+        im = Image.open(filename)
+    except AttributeError:
+        im = filename
+
     validate_image(im, number_tiles)
 
     im_w, im_h = im.size

@@ -72,7 +72,15 @@ class GeneralTest(unittest.TestCase):
         self.assertEqual(r, expected)
         self.assertEqual(extras(n, r), 6)
 
+class SplitMemoryTest(unittest.TestCase):
 
+    def setUp(self):
+        self.tiles = slice(Image.open(TEST_IMAGE), NUMBER_TILES, save=False)
+
+    def test_tiles_are_images(self):
+        self.assertTrue(all(tile.image.__class__.__name__ == '_ImageCrop')\
+                            for tile in self.tiles)
+        
 class SplitTest(unittest.TestCase):
 
     def setUp(self):
