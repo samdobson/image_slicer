@@ -44,7 +44,7 @@ Slice an image with Python:
 .. code-block:: python
 
 	>>> import image_slicer
-	>>> image_slicer.split_image('cake.jpg', 4)
+	>>> image_slicer.slice('cake.jpg', 4)
 	(<Tile #1 - cake_01_01.png>, <Tile #2 - cake_01_02.png>, <Tile #3 - cake_02_01.png>, <Tile #4 - cake_02_02.png>)
 
 
