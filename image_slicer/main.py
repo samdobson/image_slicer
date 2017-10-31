@@ -158,6 +158,7 @@ def save_tiles(tiles, prefix='', directory=os.getcwd(), format='png'):
     for tile in tiles:
         tile.save(filename=tile.generate_filename(prefix=prefix,
                                                   directory=directory,
-                                                  format=format))
+                                                  format=format), 
+                                                  format=format)
     return tuple(tiles)
 
