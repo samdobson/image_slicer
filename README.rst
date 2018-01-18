@@ -1,10 +1,6 @@
 .. image:: https://badge.fury.io/py/image_slicer.png
     :target: http://badge.fury.io/py/image_slicer
 
-.. image :: https://pypip.in/d/image_slicer/badge.png
-    :target: https://crate.io/packages/image_slicer
-    :alt: Downloads
-
 .. image:: https://secure.travis-ci.org/samdobson/image_slicer.png
     :target: http://travis-ci.org/samdobson/image_slicer
 
@@ -56,12 +52,6 @@ Slice an image with Python:
 
 `Further examples`_ can be found in the documentation_.
 
-Used by
--------
-
-* splitimag.es_
-* *collabart* (coming soon)
-
 About
 -----
 
@@ -71,4 +61,3 @@ This module was developed for *collabart*, a web application for launching colla
 .. _Further examples: https://image-slicer.readthedocs.org/en/latest/examples/
 .. _documentation: https://image-slicer.readthedocs.org/en/latest/
 .. _website: http://samdobson.github.io/image_slicer
-
