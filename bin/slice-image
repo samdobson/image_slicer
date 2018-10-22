@@ -30,7 +30,7 @@ def construct_parser():
 	optional.add_argument('-d', '--dir', default='./',
 			      help='output directory')
 	optional.add_argument('-f', '--format', default='png',
-			      help='output image format (e.g JPG, PNG, GIF)')
+			      help='output image format (e.g JPEG, PNG, GIF)')
 	#parser.add_argument('-e', '--exact', action='store_true',
 	#		    help='Enlarge some tiles to produce the exact number')
 
