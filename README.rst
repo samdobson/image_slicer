@@ -1,11 +1,11 @@
 .. image:: https://badge.fury.io/py/image_slicer.png
     :target: http://badge.fury.io/py/image_slicer
 
-.. image:: https://secure.travis-ci.org/samdobson/image_slicer.png
-    :target: http://travis-ci.org/samdobson/image_slicer
+.. image:: https://travis-ci.org/samdobson/image_slicer.svg?branch=master
+    :target: http://travis-ci.org/samdobson/image_slicer?branch=master
 
-.. image:: https://coveralls.io/repos/samdobson/image_slicer/badge.png
-    :target: https://coveralls.io/r/samdobson/image_slicer
+.. image:: https://coveralls.io/repos/github/samdobson/image_slicer/badge.svg?branch=master
+    :target: https://coveralls.io/github/samdobson/image_slicer?branch=master
 
 documentation_ | website_
 
