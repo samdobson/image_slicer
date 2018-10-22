@@ -36,7 +36,7 @@ class Tile(object):
                           format='png', path=True):
         """Construct and return a filename for this tile."""
         filename = prefix + '_{col:02d}_{row:02d}.{ext}'.format(
-                      col=self.column, row=self.row, ext=format)
+                      col=self.column, row=self.row, ext=format.lower().replace('jpeg', 'jpg'))
         if not path:
             return filename
         return os.path.join(directory, filename)
