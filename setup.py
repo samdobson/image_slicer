@@ -11,14 +11,14 @@ except ImportError:
 
 setup(
     name='image_slicer',
-    version='0.2.0-dev',
+    version='0.2.0',
     description='Cut images into tiles and reassemble them..',
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
     author='Sam Dobson',
     author_email='sjd333@gmail.com',
     url='http://samdobson.github.io/image_slicer',
-    install_requires=['Pillow>=2.0.0'],
+    install_requires=['Pillow>=4.0.0'],
     packages=['image_slicer', 'image_slicer.test'],
     license=open('LICENSE').read(),
     zip_safe=False,
@@ -31,11 +31,11 @@ setup(
         'Operating System :: OS Independent',
         'Natural Language :: English',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ),
 )
 

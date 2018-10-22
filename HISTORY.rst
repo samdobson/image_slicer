@@ -1,3 +1,10 @@
+0.2.0 (22/10/2018)
+-------------------
+
+* Fix save is executed twice
+* Fix file extensions of output files should be lower case
+* Fix CLI script help text for JPEG usage
+
 0.1.1 (15/08/2013)
 -------------------
 
