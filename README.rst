@@ -5,7 +5,7 @@
     :target: http://travis-ci.org/samdobson/image_slicer?branch=master
 
 .. image:: https://coveralls.io/repos/github/samdobson/image_slicer/badge.svg?branch=master
-:target: https://coveralls.io/github/samdobson/image_slicer?branch=master
+    :target: https://coveralls.io/github/samdobson/image_slicer?branch=master
 
 documentation_ | website_
 
