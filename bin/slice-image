@@ -9,7 +9,7 @@ def main():
 	"""Parse arguments and slice image."""
 	parser = construct_parser()
 	args = parser.parse_args()
-	tiles = slice(args.image, args.num_tiles)
+	tiles = slice(args.image, args.num_tiles, save=False)
 	save_tiles(tiles, prefix=get_basename(args.image), directory=args.dir,
 		   format=args.format)
 
