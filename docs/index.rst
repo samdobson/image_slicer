@@ -3,7 +3,7 @@
 Image Slicer
 ============
 
-Slice images into tiles and rejoin them. Compatible with **Python 2.6+, 3.2+**. Relies on Pillow_ for image manipulation.
+Slice images into tiles and rejoin them. Compatible with **Python 2.7+, 3.4+**. Relies on Pillow_ for image manipulation.
 
 .. toctree::
    :maxdepth: 2

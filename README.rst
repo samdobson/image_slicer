@@ -29,8 +29,8 @@ Installation
 
 *Python versions supported:*
 
-* 2.6+
-* 3.2+
+* 2.7+
+* 3.4+
 
 Usage
 -----
