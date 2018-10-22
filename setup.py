@@ -24,7 +24,7 @@ setup(
     zip_safe=False,
     test_suite='image_slicer.test',
     scripts=['bin/slice-image', 'bin/join-tiles'],
-    classifiers=(
+    classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: Developers',
@@ -36,6 +36,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-    ),
+    ],
 )
 
