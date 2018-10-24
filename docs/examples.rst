@@ -23,7 +23,7 @@ Need more control over saving? Pass ``save=False`` and then use :py:func:`~image
 	>>> import image_slicer
 	>>> tiles = image_slicer.slice('cake.jpg', 4, save=False)
 	>>> image_slicer.save_tiles(tiles, directory='~/cake_slices',\
-		       		    prefix='slice', ext='jpg')
+		       		    prefix='slice', format='jpg')
 	(<Tile #1 - slice_01_01.jpg>, <Tile #2 - slice_01_02.jpg>, <Tile #3 - slice_02_01.jpg>, <Tile #4 - slice_02_02.jpg>)
 
 Processing tile images
