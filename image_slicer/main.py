@@ -107,15 +107,12 @@ def validate_image_col_row(image , col , row):
     except:
         raise ValueError('columns and rows values could not be cast to integer.')
 
-    if col < 2:
-        raise ValueError('Number of columns must be between 2 and {} (you \
-                          asked for {}).'.format(SPLIT_LIMIT, col))
-    if row < 2 :
-        raise ValueError('Number of rows must be between 2 and {} (you \
-                          asked for {}).'.format(SPLIT_LIMIT, row))
-
-
-
+    if col < 1 or row < 1\
+        or col > SPLIT_LIMIT or row > SPLIT_LIMIT:
+        raise ValueError('Number of columns and rows must be between 1 and {} (you \
+                          asked for rows: {} and col: {}).'.format(SPLIT_LIMIT, row, col))
+    if col == 1 and row == 1:
+        raise ValueError('There is nothing to divide. You asked for the entire image.')
 
 def slice(filename, number_tiles=None, col=None, row=None, save=True):
     """
