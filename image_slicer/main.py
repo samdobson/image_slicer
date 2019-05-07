@@ -136,15 +136,14 @@ def slice(filename, number_tiles=None, col=None, row=None, save=True):
 
     columns = 0
     rows = 0
-    if not number_tiles is None:
+    if number_tiles is not None:
         validate_image(im, number_tiles)
         columns, rows = calc_columns_rows(number_tiles)
-        extras = (columns * rows) - number_tiles
+#        extras = (columns * rows) - number_tiles # TODO: not used
     else:
         validate_image_col_row(im, col, row)
         columns = col
         rows = row
-        extras = (columns * rows) - number_tiles
 
 
     tile_w, tile_h = int(floor(im_w / columns)), int(floor(im_h / rows))
