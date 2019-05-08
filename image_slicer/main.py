@@ -133,7 +133,7 @@ def slice(filename, number_tiles=None, col=None, row=None, save=True):
 
     columns = 0
     rows = 0
-    if number_tiles is not None:
+    if number_tiles:
         validate_image(im, number_tiles)
         columns, rows = calc_columns_rows(number_tiles)
 #        extras = (columns * rows) - number_tiles # TODO: not used
