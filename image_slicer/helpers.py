@@ -2,6 +2,7 @@
 Helper functions for ``image_slicer``.
 '''
 import os
+from PIL import Image
 
 
 def get_basename(filename):
