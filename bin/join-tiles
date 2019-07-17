@@ -16,6 +16,5 @@ parser.add_argument('-v', '--version', action='version',
 		    version='%(prog)s 0.1')
 args = parser.parse_args()
 
-image = join_tiles(open_images_in(args.dir))
+image = join(open_images_in(args.dir))
 image.save('joined.%s'.format(args.format))
-
