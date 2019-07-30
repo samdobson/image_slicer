@@ -115,23 +115,7 @@ def validate_image_col_row(image , col , row):
                           asked for {}).'.format(SPLIT_LIMIT, row))
 
 
-
-
-def slice(filename, number_tiles=None, col=None, row=None, save=True):
-    """
-    Split an image into a specified number of tiles.
-
-    Args:
-       filename (str):  The filename of the image to split.
-       number_tiles (int):  The number of tiles required.
-
-    Kwargs:
-       save (bool): Whether or not to save tiles to disk.
-
-    Returns:
-        Tuple of :class:`Tile` instances.
-    """
-    im = Image.open(filename)
+def slice_operations(im, number_tiles, col, row, save, filename):
     im_w, im_h = im.size
 
     columns = 0
@@ -166,6 +150,54 @@ def slice(filename, number_tiles=None, col=None, row=None, save=True):
                    prefix=get_basename(filename),
                    directory=os.path.dirname(filename))
     return tuple(tiles)
+
+def slice_PIL_Image(im, number_tiles=None, col=None, row=None, save=True, 
+    im_filename=None):
+    """
+    Split an PIL Image object into a specified number of tiles.
+
+    Args:
+       im (str):  The Image object to split.
+       number_tiles (int):  The number of tiles required.
+
+    Kwargs:
+       save (bool): Whether or not to save tiles to disk.
+       im_filename (str): If save=True, the base filename of the Image 
+            object. Dynamic filenames for all tiles will be calculated by 
+            appending tile number to base filename
+
+            Ex: im_filename = path/image.png
+
+            If number_tiles=2, tiles will be named:
+                path/image_01_01.png
+                path/image_01_02.png
+
+
+    Returns:
+        Tuple of :class:`Tile` instances.
+    """
+    if save:
+        if not im_filename or not isinstance(im_filename, str):
+            raise ValueError("Please enter a base filename if you want to save tiles.")
+    return slice_operations(im, number_tiles, col, row, save, im_filename)
+
+
+def slice(filename, number_tiles=None, col=None, row=None, save=True):
+    """
+    Split an image into a specified number of tiles.
+
+    Args:
+       filename (str):  The filename of the image to split.
+       number_tiles (int):  The number of tiles required.
+
+    Kwargs:
+       save (bool): Whether or not to save tiles to disk.
+
+    Returns:
+        Tuple of :class:`Tile` instances.
+    """
+    im = Image.open(filename)
+    return slice_operations(im, number_tiles, col, row, save, filename)
 
 def save_tiles(tiles, prefix='', directory=os.getcwd(), format='png'):
     """
