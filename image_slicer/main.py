@@ -73,15 +73,29 @@ def get_combined_size(tiles):
     tile_size = tiles[0].image.size
     return (tile_size[0] * columns, tile_size[1] * rows)
 
-def join(tiles):
+def join(tiles, width=0, height=0):
     """
     @param ``tiles`` - Tuple of ``Image`` instances.
+    @param ``width`` - Optional, width of combined image.
+    @param ``height`` - Optional, height of combined image.
     @return ``Image`` instance.
     """
-    im = Image.new('RGB', get_combined_size(tiles), None)
+    # Don't calculate size if width and height are provided
+    # this allows an application that knows what the
+    # combined size should be to construct an image when
+    # pieces are missing.
+
+    if width > 0 and height > 0:
+        im = Image.new('RGB',(width, height), None)
+    else:
+        im = Image.new('RGB', get_combined_size(tiles), None)
     columns, rows = calc_columns_rows(len(tiles))
     for tile in tiles:
-        im.paste(tile.image, tile.coords)
+        try:
+            im.paste(tile.image, tile.coords)
+        except IOError:
+            #do nothing, blank out the image
+            continue
     return im
 
 def validate_image(image, number_tiles):
@@ -188,7 +202,34 @@ def save_tiles(tiles, prefix='', directory=os.getcwd(), format='png'):
     for tile in tiles:
         tile.save(filename=tile.generate_filename(prefix=prefix,
                                                   directory=directory,
-                                                  format=format), 
+                                                  format=format),
                                                   format=format)
     return tuple(tiles)
 
+
+def get_image_column_row(filename):
+    """Determine column and row position for filename."""
+    row, column = os.path.splitext(filename)[0][-5:].split('_')
+    return (int(column)-1, int(row)-1)
+
+
+def open_images_in(directory):
+    """Open all images in a directory. Return tuple of Tile instances."""
+
+    files = [filename for filename in os.listdir(directory)
+                    if '_' in filename and not filename.startswith('joined')]
+    tiles = []
+    if len(files) > 0:
+        i = 0
+        for file in files:
+            pos = get_image_column_row(file)
+            im = Image.open(os.path.join(directory, file))
+
+            position_xy=[0,0]
+            count=0
+            for a,b in zip(pos,im.size):
+                position_xy[count] = a*b
+                count = count + 1
+            tiles.append(Tile(image = im, position = pos, number = i+1, coords = position_xy, filename = file))
+            i = i + 1
+    return tiles
