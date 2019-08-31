@@ -1,1 +1,1 @@
-include LICENSE README.rst HISTORY.rst requirements.txt image_slicer/test/sample.jpg
+include LICENSE README.md HISTORY.md requirements.txt image_slicer/test/sample.jpg
