@@ -131,7 +131,8 @@ def validate_image_col_row(image , col , row):
 
 
 
-def slice(filename, number_tiles=None, col=None, row=None, save=True):
+def slice(filename, number_tiles=None, col=None, row=None, 
+          save=True, DecompressionBombWarning=True):
     """
     Split an image into a specified number of tiles.
 
@@ -141,10 +142,14 @@ def slice(filename, number_tiles=None, col=None, row=None, save=True):
 
     Kwargs:
        save (bool): Whether or not to save tiles to disk.
+       DecompressionBombWarning (bool): Whether to suppress Pillow DecompressionBombWarning
 
     Returns:
         Tuple of :class:`Tile` instances.
     """
+    if DecompressionBombWarning is False:
+        Image.MAX_IMAGE_PIXELS = None
+    
     im = Image.open(filename)
     im_w, im_h = im.size
 
