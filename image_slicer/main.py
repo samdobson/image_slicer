@@ -55,21 +55,28 @@ class Tile(object):
         return '<Tile #{}>'.format(self.number)
 
 
-def calc_columns_rows(n):
+def calc_columns_rows(tiles):
     """
-    Calculate the number of columns and rows required to divide an image
-    into ``n`` parts.
+    Calculate the number of columns and rows
 
     Return a tuple of integers in the format (num_columns, num_rows)
     """
-    num_columns = int(ceil(sqrt(n)))
-    num_rows = int(ceil(n / float(num_columns)))
+
+    num_columns = 0
+    num_rows = 0
+
+    for tile in tiles:
+        if tile.position[0] > num_columns:
+            num_columns = tile.position[0]
+        if tile.position[1] > num_rows:
+            num_rows = tile.position[1]
+
     return (num_columns, num_rows)
 
 def get_combined_size(tiles):
     """Calculate combined size of tiles."""
     # TODO: Refactor calculating layout to avoid repetition.
-    columns, rows = calc_columns_rows(len(tiles))
+    columns, rows = calc_columns_rows(tiles)
     tile_size = tiles[0].image.size
     return (tile_size[0] * columns, tile_size[1] * rows)
 
@@ -89,7 +96,7 @@ def join(tiles, width=0, height=0):
         im = Image.new('RGB',(width, height), None)
     else:
         im = Image.new('RGB', get_combined_size(tiles), None)
-    columns, rows = calc_columns_rows(len(tiles))
+    
     for tile in tiles:
         try:
             im.paste(tile.image, tile.coords)
@@ -154,13 +161,12 @@ def slice(filename, number_tiles=None, col=None, row=None,
     rows = 0
     if number_tiles:
         validate_image(im, number_tiles)
-        columns, rows = calc_columns_rows(number_tiles)
-#        extras = (columns * rows) - number_tiles # TODO: not used
+        columns = int(ceil(sqrt(number_tiles)))
+        rows = int(ceil(number_tiles / float(columns)))
     else:
         validate_image_col_row(im, col, row)
         columns = col
         rows = row
-
 
     tile_w, tile_h = int(floor(im_w / columns)), int(floor(im_h / rows))
 
