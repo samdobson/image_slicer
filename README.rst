@@ -52,12 +52,8 @@ Slice an image with Python:
 
 `Further examples`_ can be found in the documentation_.
 
-About
------
+Projects
+--------
 
-This module was developed for *collabart*, a web application for launching collaborative art projects.
-
-.. _splitimag.es: http://splitimag.es
-.. _Further examples: https://image-slicer.readthedocs.org/en/latest/examples/
-.. _documentation: https://image-slicer.readthedocs.org/en/latest/
-.. _website: http://samdobson.github.io/image_slicer
+This module (or a derivative thereof) is used by:
+* https://github.com/cromlyngames/Moire_animation
