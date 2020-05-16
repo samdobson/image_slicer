@@ -86,9 +86,9 @@ def join(tiles, width=0, height=0):
     # pieces are missing.
 
     if width > 0 and height > 0:
-        im = Image.new('RGB',(width, height), None)
+        im = Image.new('RGBA',(width, height), None)
     else:
-        im = Image.new('RGB', get_combined_size(tiles), None)
+        im = Image.new('RGBA', get_combined_size(tiles), None)
     columns, rows = calc_columns_rows(len(tiles))
     for tile in tiles:
         try:
