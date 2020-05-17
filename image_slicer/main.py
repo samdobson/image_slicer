@@ -129,7 +129,7 @@ def validate_image_col_row(image , col , row):
         raise ValueError('There is nothing to divide. You asked for the entire image.')
 
 def slice(filename, number_tiles=None, col=None, row=None, 
-          save=True, DecompressionBombWarning=True):
+          save=True, DecompressionBombWarning=True,invert = False):
     """
     Split an image into a specified number of tiles.
 
@@ -146,6 +146,9 @@ def slice(filename, number_tiles=None, col=None, row=None,
     """
     if DecompressionBombWarning is False:
         Image.MAX_IMAGE_PIXELS = None
+
+    if invert is True:
+        im = im.rotate(90)
     
     im = Image.open(filename)
     im_w, im_h = im.size
