@@ -17,9 +17,9 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
@@ -28,8 +28,8 @@ jobs:
         pip install .[test]
     - name: Test with pytest
       run: |
-        {% endraw %}pytest --cov-report xml --cov={{ cookiecutter.project_slug }} {{ cookiecutter.project_slug }}/tests/
-        {% raw %}codecov -t ${{ secrets.CODECOV_TOKEN }}{% endraw %}
+        pytest --cov-report xml --cov=image_slicer image_slicer/tests/
+        codecov -t ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest
