@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>image_slicer.main &mdash; Image Slicer 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Image Slicer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#stable-release">Stable release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#from-sources">From sources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../image_slicer.html">image_slicer package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../image_slicer.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../image_slicer.bin.html">image_slicer.bin package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../image_slicer.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../image_slicer.html#module-image_slicer.helpers">image_slicer.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../image_slicer.html#module-image_slicer.main">image_slicer.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../image_slicer.html#module-image_slicer">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html#the-four-commands-you-need-to-know">The Four Commands You Need To Know</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html#deploying">Deploying</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Image Slicer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../image_slicer.html">image_slicer</a> &raquo;</li>
+        
+      <li>image_slicer.main</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for image_slicer.main</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">floor</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">get_basename</span>
+
+
+<div class="viewcode-block" id="Tile"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.Tile">[docs]</a><span class="k">class</span> <span class="nc">Tile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Represents a single tile.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">column</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Strip path and extension. Return base filename.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">get_basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Tile.generate_filename"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.Tile.generate_filename">[docs]</a>    <span class="k">def</span> <span class="nf">generate_filename</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;tile&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct and return a filename for this tile.&quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_</span><span class="si">{col:02d}</span><span class="s2">_</span><span class="si">{row:02d}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">col</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="nb">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;jpg&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">filename</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tile.save"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.Tile.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_filename</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Show tile number, and if saved to disk, filename.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&lt;Tile #</span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;Tile #</span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="calc_columns_rows"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.calc_columns_rows">[docs]</a><span class="k">def</span> <span class="nf">calc_columns_rows</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the number of columns and rows required to divide an image</span>
+<span class="sd">    into ``n`` parts.</span>
+
+<span class="sd">    Return a tuple of integers in the format (num_columns, num_rows)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_columns</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+    <span class="n">num_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_columns</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">num_columns</span><span class="p">,</span> <span class="n">num_rows</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_combined_size"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.get_combined_size">[docs]</a><span class="k">def</span> <span class="nf">get_combined_size</span><span class="p">(</span><span class="n">tiles</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate combined size of tiles.&quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Refactor calculating layout to avoid repetition.</span>
+    <span class="n">columns</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">calc_columns_rows</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tiles</span><span class="p">))</span>
+    <span class="n">tile_size</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">tile_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">columns</span><span class="p">,</span> <span class="n">tile_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">rows</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="join"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.join">[docs]</a><span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="n">tiles</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    @param ``tiles`` - Tuple of ``Image`` instances.</span>
+<span class="sd">    @param ``width`` - Optional, width of combined image.</span>
+<span class="sd">    @param ``height`` - Optional, height of combined image.</span>
+<span class="sd">    @return ``Image`` instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Don&#39;t calculate size if width and height are provided</span>
+    <span class="c1"># this allows an application that knows what the</span>
+    <span class="c1"># combined size should be to construct an image when</span>
+    <span class="c1"># pieces are missing.</span>
+
+    <span class="k">if</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="n">get_combined_size</span><span class="p">(</span><span class="n">tiles</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">columns</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">calc_columns_rows</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tiles</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">tile</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="c1"># do nothing, blank out the image</span>
+            <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">im</span></div>
+
+
+<div class="viewcode-block" id="validate_image"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.validate_image">[docs]</a><span class="k">def</span> <span class="nf">validate_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">number_tiles</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Basic sanity checks prior to performing a split.&quot;&quot;&quot;</span>
+    <span class="n">TILE_LIMIT</span> <span class="o">=</span> <span class="mi">99</span> <span class="o">*</span> <span class="mi">99</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">number_tiles</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">number_tiles</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;number_tiles could not be cast to integer.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">number_tiles</span> <span class="o">&gt;</span> <span class="n">TILE_LIMIT</span> <span class="ow">or</span> <span class="n">number_tiles</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Number of tiles must be between 2 and </span><span class="si">{}</span><span class="s2"> (you </span><span class="se">\</span>
+<span class="s2">                          asked for </span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">TILE_LIMIT</span><span class="p">,</span> <span class="n">number_tiles</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="validate_image_col_row"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.validate_image_col_row">[docs]</a><span class="k">def</span> <span class="nf">validate_image_col_row</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Basic checks for columns and rows values&quot;&quot;&quot;</span>
+    <span class="n">SPLIT_LIMIT</span> <span class="o">=</span> <span class="mi">99</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;columns and rows values could not be cast to integer.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">col</span> <span class="o">&gt;</span> <span class="n">SPLIT_LIMIT</span> <span class="ow">or</span> <span class="n">row</span> <span class="o">&gt;</span> <span class="n">SPLIT_LIMIT</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Number of columns and rows must be between 1 and&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">SPLIT_LIMIT</span><span class="si">}</span><span class="s2"> (you asked for rows: </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2"> and col: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">).&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">row</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;There is nothing to divide. You asked for the entire image.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="slice"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.slice">[docs]</a><span class="k">def</span> <span class="nf">slice</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">,</span>
+    <span class="n">number_tiles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">DecompressionBombWarning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split an image into a specified number of tiles.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       filename (str):  The filename of the image to split.</span>
+<span class="sd">       number_tiles (int):  The number of tiles required.</span>
+
+<span class="sd">    Kwargs:</span>
+<span class="sd">       save (bool): Whether or not to save tiles to disk.</span>
+<span class="sd">       DecompressionBombWarning (bool): Whether to suppress</span>
+<span class="sd">       Pillow DecompressionBombWarning</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of :class:`Tile` instances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">DecompressionBombWarning</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">Image</span><span class="o">.</span><span class="n">MAX_IMAGE_PIXELS</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">im_w</span><span class="p">,</span> <span class="n">im_h</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="n">columns</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">number_tiles</span><span class="p">:</span>
+        <span class="n">validate_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">number_tiles</span><span class="p">)</span>
+        <span class="n">columns</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">calc_columns_rows</span><span class="p">(</span><span class="n">number_tiles</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">validate_image_col_row</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">row</span>
+
+    <span class="n">tile_w</span><span class="p">,</span> <span class="n">tile_h</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">(</span><span class="n">im_w</span> <span class="o">/</span> <span class="n">columns</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">(</span><span class="n">im_h</span> <span class="o">/</span> <span class="n">rows</span><span class="p">))</span>
+
+    <span class="n">tiles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">pos_y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">im_h</span> <span class="o">-</span> <span class="n">rows</span><span class="p">,</span> <span class="n">tile_h</span><span class="p">):</span>  <span class="c1"># -rows for rounding error.</span>
+        <span class="k">for</span> <span class="n">pos_x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">im_w</span> <span class="o">-</span> <span class="n">columns</span><span class="p">,</span> <span class="n">tile_w</span><span class="p">):</span>  <span class="c1"># as above.</span>
+            <span class="n">area</span> <span class="o">=</span> <span class="p">(</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">,</span> <span class="n">pos_x</span> <span class="o">+</span> <span class="n">tile_w</span><span class="p">,</span> <span class="n">pos_y</span> <span class="o">+</span> <span class="n">tile_h</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">(</span><span class="n">pos_x</span> <span class="o">/</span> <span class="n">tile_w</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">(</span><span class="n">pos_y</span> <span class="o">/</span> <span class="n">tile_h</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">coords</span> <span class="o">=</span> <span class="p">(</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">)</span>
+            <span class="n">tile</span> <span class="o">=</span> <span class="n">Tile</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+            <span class="n">tiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tile</span><span class="p">)</span>
+            <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">save_tiles</span><span class="p">(</span>
+            <span class="n">tiles</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">get_basename</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">directory</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">tiles</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_tiles"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.save_tiles">[docs]</a><span class="k">def</span> <span class="nf">save_tiles</span><span class="p">(</span><span class="n">tiles</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write image files to disk. Create specified folder(s) if they</span>
+<span class="sd">       don&#39;t exist. Return list of :class:`Tile` instance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       tiles (list):  List, tuple or set of :class:`Tile` objects to save.</span>
+<span class="sd">       prefix (str):  Filename prefix of saved tiles.</span>
+
+<span class="sd">    Kwargs:</span>
+<span class="sd">       directory (str):  Directory to save tiles. Created if non-existant.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of :class:`Tile` instances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+        <span class="n">tile</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">tile</span><span class="o">.</span><span class="n">generate_filename</span><span class="p">(</span>
+                <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span>
+            <span class="p">),</span>
+            <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">tiles</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_image_column_row"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.get_image_column_row">[docs]</a><span class="k">def</span> <span class="nf">get_image_column_row</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Determine column and row position for filename.&quot;&quot;&quot;</span>
+    <span class="n">row</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="open_images_in"><a class="viewcode-back" href="../../image_slicer.html#image_slicer.main.open_images_in">[docs]</a><span class="k">def</span> <span class="nf">open_images_in</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Open all images in a directory. Return tuple of Tile instances.&quot;&quot;&quot;</span>
+
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">filename</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;joined&quot;</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">tiles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">get_image_column_row</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+
+            <span class="n">position_xy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">position_xy</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">tiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">Tile</span><span class="p">(</span>
+                    <span class="n">image</span><span class="o">=</span><span class="n">im</span><span class="p">,</span>
+                    <span class="n">position</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span>
+                    <span class="n">number</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">coords</span><span class="o">=</span><span class="n">position_xy</span><span class="p">,</span>
+                    <span class="n">filename</span><span class="o">=</span><span class="n">file</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">tiles</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Sam Dobson
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

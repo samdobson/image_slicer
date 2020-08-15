@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>image_slicer package &mdash; Image Slicer 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="image_slicer.bin package" href="image_slicer.bin.html" />
+    <link rel="prev" title="image_slicer" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Image Slicer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#stable-release">Stable release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#from-sources">From sources</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Package modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">image_slicer package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_slicer.bin.html">image_slicer.bin package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-image_slicer.helpers">image_slicer.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-image_slicer.main">image_slicer.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-image_slicer">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#the-four-commands-you-need-to-know">The Four Commands You Need To Know</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#deploying">Deploying</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Image Slicer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">image_slicer</a> &raquo;</li>
+        
+      <li>image_slicer package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/image_slicer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="image_slicer.bin.html" class="btn btn-neutral float-right" title="image_slicer.bin package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="image_slicer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="image-slicer-package">
+<h1>image_slicer package<a class="headerlink" href="#image-slicer-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="image_slicer.bin.html">image_slicer.bin package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image_slicer.bin.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_slicer.bin.html#module-image_slicer.bin.slice">image_slicer.bin.slice module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_slicer.bin.html#module-image_slicer.bin">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-image_slicer.helpers">
+<span id="image-slicer-helpers-module"></span><h2>image_slicer.helpers module<a class="headerlink" href="#module-image_slicer.helpers" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions for <code class="docutils literal notranslate"><span class="pre">image_slicer</span></code>.</p>
+<dl class="function">
+<dt id="image_slicer.helpers.get_basename">
+<code class="sig-prename descclassname">image_slicer.helpers.</code><code class="sig-name descname">get_basename</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/helpers.html#get_basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.helpers.get_basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strip path and extension. Return basename.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.helpers.get_columns_rows">
+<code class="sig-prename descclassname">image_slicer.helpers.</code><code class="sig-name descname">get_columns_rows</code><span class="sig-paren">(</span><em class="sig-param">filenames</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/helpers.html#get_columns_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.helpers.get_columns_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derive number of columns and rows from filenames.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.helpers.open_images">
+<code class="sig-prename descclassname">image_slicer.helpers.</code><code class="sig-name descname">open_images</code><span class="sig-paren">(</span><em class="sig-param">directory</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/helpers.html#open_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.helpers.open_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open all images in a directory. Return tuple of Image instances.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-image_slicer.main">
+<span id="image-slicer-main-module"></span><h2>image_slicer.main module<a class="headerlink" href="#module-image_slicer.main" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="image_slicer.main.Tile">
+<em class="property">class </em><code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">Tile</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">number</em>, <em class="sig-param">position</em>, <em class="sig-param">coords</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#Tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.Tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a single tile.</p>
+<dl class="method">
+<dt id="image_slicer.main.Tile.basename">
+<em class="property">property </em><code class="sig-name descname">basename</code><a class="headerlink" href="#image_slicer.main.Tile.basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strip path and extension. Return base filename.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_slicer.main.Tile.column">
+<em class="property">property </em><code class="sig-name descname">column</code><a class="headerlink" href="#image_slicer.main.Tile.column" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="image_slicer.main.Tile.generate_filename">
+<code class="sig-name descname">generate_filename</code><span class="sig-paren">(</span><em class="sig-param">directory='/home/runner/work/image_slicer/image_slicer/docs'</em>, <em class="sig-param">prefix='tile'</em>, <em class="sig-param">format='png'</em>, <em class="sig-param">path=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#Tile.generate_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.Tile.generate_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct and return a filename for this tile.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_slicer.main.Tile.row">
+<em class="property">property </em><code class="sig-name descname">row</code><a class="headerlink" href="#image_slicer.main.Tile.row" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="image_slicer.main.Tile.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filename=None</em>, <em class="sig-param">format='png'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#Tile.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.Tile.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.calc_columns_rows">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">calc_columns_rows</code><span class="sig-paren">(</span><em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#calc_columns_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.calc_columns_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of columns and rows required to divide an image
+into <code class="docutils literal notranslate"><span class="pre">n</span></code> parts.</p>
+<p>Return a tuple of integers in the format (num_columns, num_rows)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.get_combined_size">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">get_combined_size</code><span class="sig-paren">(</span><em class="sig-param">tiles</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#get_combined_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.get_combined_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate combined size of tiles.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.get_image_column_row">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">get_image_column_row</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#get_image_column_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.get_image_column_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine column and row position for filename.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.join">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">join</code><span class="sig-paren">(</span><em class="sig-param">tiles</em>, <em class="sig-param">width=0</em>, <em class="sig-param">height=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#64;param <code class="docutils literal notranslate"><span class="pre">tiles</span></code> - Tuple of <code class="docutils literal notranslate"><span class="pre">Image</span></code> instances.
+&#64;param <code class="docutils literal notranslate"><span class="pre">width</span></code> - Optional, width of combined image.
+&#64;param <code class="docutils literal notranslate"><span class="pre">height</span></code> - Optional, height of combined image.
+&#64;return <code class="docutils literal notranslate"><span class="pre">Image</span></code> instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.open_images_in">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">open_images_in</code><span class="sig-paren">(</span><em class="sig-param">directory</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#open_images_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.open_images_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open all images in a directory. Return tuple of Tile instances.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.save_tiles">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">save_tiles</code><span class="sig-paren">(</span><em class="sig-param">tiles</em>, <em class="sig-param">prefix=''</em>, <em class="sig-param">directory='/home/runner/work/image_slicer/image_slicer/docs'</em>, <em class="sig-param">format='png'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#save_tiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.save_tiles" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Write image files to disk. Create specified folder(s) if they</dt><dd><p>don’t exist. Return list of <a class="reference internal" href="#image_slicer.main.Tile" title="image_slicer.main.Tile"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tile</span></code></a> instance.</p>
+</dd>
+<dt>Args:</dt><dd><p>tiles (list):  List, tuple or set of <a class="reference internal" href="#image_slicer.main.Tile" title="image_slicer.main.Tile"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tile</span></code></a> objects to save.
+prefix (str):  Filename prefix of saved tiles.</p>
+</dd>
+<dt>Kwargs:</dt><dd><p>directory (str):  Directory to save tiles. Created if non-existant.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Tuple of <a class="reference internal" href="#image_slicer.main.Tile" title="image_slicer.main.Tile"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tile</span></code></a> instances.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.slice">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">slice</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">number_tiles=None</em>, <em class="sig-param">col=None</em>, <em class="sig-param">row=None</em>, <em class="sig-param">save=True</em>, <em class="sig-param">DecompressionBombWarning=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split an image into a specified number of tiles.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str):  The filename of the image to split.
+number_tiles (int):  The number of tiles required.</p>
+</dd>
+<dt>Kwargs:</dt><dd><p>save (bool): Whether or not to save tiles to disk.
+DecompressionBombWarning (bool): Whether to suppress
+Pillow DecompressionBombWarning</p>
+</dd>
+<dt>Returns:</dt><dd><p>Tuple of <a class="reference internal" href="#image_slicer.main.Tile" title="image_slicer.main.Tile"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tile</span></code></a> instances.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.validate_image">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">validate_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">number_tiles</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#validate_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.validate_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic sanity checks prior to performing a split.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_slicer.main.validate_image_col_row">
+<code class="sig-prename descclassname">image_slicer.main.</code><code class="sig-name descname">validate_image_col_row</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">col</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer/main.html#validate_image_col_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.main.validate_image_col_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic checks for columns and rows values</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-image_slicer">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-image_slicer" title="Permalink to this headline">¶</a></h2>
+<p>Top-level package for Image Slicer.</p>
+<dl class="function">
+<dt id="image_slicer.get_module_version">
+<code class="sig-prename descclassname">image_slicer.</code><code class="sig-name descname">get_module_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_slicer.html#get_module_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_slicer.get_module_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Sam Dobson
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
