@@ -31,7 +31,7 @@ dev_requirements = [
     "ipython>=7.15.0",
     "m2r>=0.2.1",
     "pytest-runner>=5.2",
-    "Sphinx>=2.1.0b1,<3",
+    "Sphinx>=2.1.1b1,<3",
     "sphinx_rtd_theme>=0.4.3",
     "tox>=3.15.2",
     "twine>=3.1.1",
@@ -77,6 +77,6 @@ setup(
     url="https://github.com/samdobson/image_slicer",
     # Do not edit this string manually, always use bumpversion
     # Details in CONTRIBUTING.rst
-    version="2.1.0",
+    version="2.1.1",
     zip_safe=False,
 )
