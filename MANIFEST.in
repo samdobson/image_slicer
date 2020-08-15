@@ -1,1 +1,11 @@
-include LICENSE README.md HISTORY.md requirements.txt image_slicer/test/sample.jpg
+include CONTRIBUTING.md
+include LICENSE
+include README.md
+include HISTORY.rst
+
+recursive-include tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
+graft image_slicer/data
