@@ -18,7 +18,7 @@ Splitting images into tiles. With Python. Since 2013.
 Slice your images either with the command line utility:
 
 ```bash
-$ slice-image cake.png 4
+$ slice-image cake.png -n 4
 ```
 
 ... or from your Python script:
