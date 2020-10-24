@@ -75,10 +75,10 @@ def calc_columns_rows(tiles):
 
 def get_combined_size(tiles):
     """Calculate combined size of tiles."""
-    # TODO: Refactor calculating layout to avoid repetition.
     columns, rows = calc_columns_rows(tiles)
-    tile_size = tiles[0].image.size
-    return (tile_size[0] * columns, tile_size[1] * rows)
+    first_tile_size = tiles[0].image.size
+    last_tile_size = tiles[-1].image.size
+    return (first_tile_size[0] * (columns-1) + last_tile_size[0], first_tile_size[1] * (rows-1) + last_tile_size[1])
 
 def join(tiles, width=0, height=0):
     """
@@ -172,16 +172,24 @@ def slice(filename, number_tiles=None, col=None, row=None,
 
     tiles = []
     number = 1
-    for pos_y in range(0, im_h - rows, tile_h): # -rows for rounding error.
-        for pos_x in range(0, im_w - columns, tile_w): # as above.
-            area = (pos_x, pos_y, pos_x + tile_w, pos_y + tile_h)
+
+    # split to force the correct number of tiles
+    # to the expense of the last one which may be quite large
+    pos_y = list(range(0, tile_h*rows, tile_h)) + [im_h]
+    pos_x = list(range(0, tile_w*columns, tile_w)) + [im_w]
+
+    for n_y in range(0,len(pos_y) - 1):
+        for n_x in range(0,len(pos_x) - 1):
+            area = (pos_x[n_x], pos_y[n_y], pos_x[n_x + 1], pos_y[n_y + 1])
             image = im.crop(area)
-            position = (int(floor(pos_x / tile_w)) + 1,
-                        int(floor(pos_y / tile_h)) + 1)
-            coords = (pos_x, pos_y)
+            position = (n_x + 1, n_y + 1)
+            coords = (pos_x[n_x], pos_y[n_y])
             tile = Tile(image, number, position, coords)
             tiles.append(tile)
             number += 1
+
+    # remainder_w, remainder_h = int(im_w%tile_w), int(im_h%tile_h)
+
     if save:
         save_tiles(tiles,
                    prefix=get_basename(filename),
