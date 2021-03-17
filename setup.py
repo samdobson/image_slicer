@@ -38,7 +38,7 @@ dev_requirements = [
     "wheel>=0.34.2",
 ]
 
-requirements = ["Pillow==7.2.0"]
+requirements = ["Pillow>=7.2.0"]
 
 extra_requirements = {
     "setup": setup_requirements,
