@@ -1,5 +1,0 @@
-[run]
-omit =
-    */site-packages/nose/*
-    */site-packages/PIL/*
-

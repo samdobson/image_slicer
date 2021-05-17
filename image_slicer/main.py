@@ -1,6 +1,6 @@
-'''
-Main functionality of ``image_slicer``.
-'''
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 from math import sqrt, ceil, floor
 
@@ -32,16 +32,18 @@ class Tile(object):
         """Strip path and extension. Return base filename."""
         return get_basename(self.filename)
 
-    def generate_filename(self, directory=os.getcwd(), prefix='tile',
-                          format='png', path=True):
+    def generate_filename(
+        self, directory=os.getcwd(), prefix="tile", format="png", path=True
+    ):
         """Construct and return a filename for this tile."""
-        filename = prefix + '_{col:02d}_{row:02d}.{ext}'.format(
-                      col=self.column, row=self.row, ext=format.lower().replace('jpeg', 'jpg'))
+        filename = prefix + "_{col:02d}_{row:02d}.{ext}".format(
+            col=self.column, row=self.row, ext=format.lower().replace("jpeg", "jpg")
+        )
         if not path:
             return filename
         return os.path.join(directory, filename)
 
-    def save(self, filename=None, format='png'):
+    def save(self, filename=None, format="png"):
         if not filename:
             filename = self.generate_filename(format=format)
         self.image.save(filename, format)
@@ -50,9 +52,10 @@ class Tile(object):
     def __repr__(self):
         """Show tile number, and if saved to disk, filename."""
         if self.filename:
-            return '<Tile #{} - {}>'.format(self.number,
-                                            os.path.basename(self.filename))
-        return '<Tile #{}>'.format(self.number)
+            return "<Tile #{} - {}>".format(
+                self.number, os.path.basename(self.filename)
+            )
+        return "<Tile #{}>".format(self.number)
 
 
 def calc_columns_rows(n):
@@ -66,12 +69,14 @@ def calc_columns_rows(n):
     num_rows = int(ceil(n / float(num_columns)))
     return (num_columns, num_rows)
 
+
 def get_combined_size(tiles):
     """Calculate combined size of tiles."""
     # TODO: Refactor calculating layout to avoid repetition.
     columns, rows = calc_columns_rows(len(tiles))
     tile_size = tiles[0].image.size
     return (tile_size[0] * columns, tile_size[1] * rows)
+
 
 def join(tiles, width=0, height=0):
     """
@@ -86,17 +91,18 @@ def join(tiles, width=0, height=0):
     # pieces are missing.
 
     if width > 0 and height > 0:
-        im = Image.new('RGB',(width, height), None)
+        im = Image.new("RGBA", (width, height), None)
     else:
-        im = Image.new('RGB', get_combined_size(tiles), None)
+        im = Image.new("RGBA", get_combined_size(tiles), None)
     columns, rows = calc_columns_rows(len(tiles))
     for tile in tiles:
         try:
             im.paste(tile.image, tile.coords)
         except IOError:
-            #do nothing, blank out the image
+            # do nothing, blank out the image
             continue
     return im
+
 
 def validate_image(image, number_tiles):
     """Basic sanity checks prior to performing a split."""
@@ -104,30 +110,35 @@ def validate_image(image, number_tiles):
 
     try:
         number_tiles = int(number_tiles)
-    except:
-        raise ValueError('number_tiles could not be cast to integer.')
+    except BaseException:
+        raise ValueError("number_tiles could not be cast to integer.")
 
     if number_tiles > TILE_LIMIT or number_tiles < 2:
-        raise ValueError('Number of tiles must be between 2 and {} (you \
-                          asked for {}).'.format(TILE_LIMIT, number_tiles))
+        raise ValueError(
+            "Number of tiles must be between 2 and {} (you \
+                          asked for {}).".format(
+                TILE_LIMIT, number_tiles
+            )
+        )
 
-def validate_image_col_row(image , col , row):
+
+def validate_image_col_row(image, col, row):
     """Basic checks for columns and rows values"""
     SPLIT_LIMIT = 99
 
     try:
         col = int(col)
         row = int(row)
-    except:
-        raise ValueError('columns and rows values could not be cast to integer.')
+    except BaseException:
+        raise ValueError("columns and rows values could not be cast to integer.")
 
-    if col < 2:
-        raise ValueError('Number of columns must be between 2 and {} (you \
-                          asked for {}).'.format(SPLIT_LIMIT, col))
-    if row < 2 :
-        raise ValueError('Number of rows must be between 2 and {} (you \
-                          asked for {}).'.format(SPLIT_LIMIT, row))
-
+    if col < 1 or row < 1 or col > SPLIT_LIMIT or row > SPLIT_LIMIT:
+        raise ValueError(
+            f"Number of columns and rows must be between 1 and"
+            f"{SPLIT_LIMIT} (you asked for rows: {row} and col: {col})."
+        )
+    if col == 1 and row == 1:
+        raise ValueError("There is nothing to divide. You asked for the entire image.")
 
 def slice_operations(im, number_tiles, col, row, save, filename):
     im_w, im_h = im.size
@@ -165,7 +176,8 @@ def slice_operations(im, number_tiles, col, row, save, filename):
                    directory=os.path.dirname(filename))
     return tuple(tiles)
 
-def slice_PIL_Image(im, number_tiles=None, col=None, row=None, save=True, 
+
+def slice_PIL_Image(im, number_tiles=None, col=None, row=None, save=True,
     im_filename=None):
     """
     Split an PIL Image object into a specified number of tiles.
@@ -176,8 +188,8 @@ def slice_PIL_Image(im, number_tiles=None, col=None, row=None, save=True,
 
     Kwargs:
        save (bool): Whether or not to save tiles to disk.
-       im_filename (str): If save=True, the base filename of the Image 
-            object. Dynamic filenames for all tiles will be calculated by 
+       im_filename (str): If save=True, the base filename of the Image
+            object. Dynamic filenames for all tiles will be calculated by
             appending tile number to base filename
 
             Ex: im_filename = path/image.png
@@ -213,7 +225,7 @@ def slice(filename, number_tiles=None, col=None, row=None, save=True):
     im = Image.open(filename)
     return slice_operations(im, number_tiles, col, row, save, filename)
 
-def save_tiles(tiles, prefix='', directory=os.getcwd(), format='png'):
+def save_tiles(tiles, prefix="", directory=os.getcwd(), format="png"):
     """
     Write image files to disk. Create specified folder(s) if they
        don't exist. Return list of :class:`Tile` instance.

@@ -1,23 +1,17 @@
-"""
-Image Slicer
-~~~~~~~~~~~~
+# -*- coding: utf-8 -*-
 
-Chop up images. Merge them back together. Basic usage:
+"""Top-level package for Image Slicer."""
 
-   >>> import image_slicer
-   >>> print('example goes here')
-   example goes here
+__author__ = "Sam Dobson"
+__email__ = "1309834+samdobson@users.noreply.github.com"
+# Do not edit this string manually, always use bumpversion
+# Details in CONTRIBUTING.md
+__version__ = "2.1.1"
 
-:copyright: (c) 2013 Sam Dobson.
-:license: MIT, see LICENSE for more details.
 
-"""
+def get_module_version():
+    return __version__
 
-__title__ = 'image_slicer'
-__author__ = 'Sam Dobson'
-__license__ = 'MIT'
-__copyright__ = 'Copyright 2013 Sam Dobson'
 
-from .main import *
-from .helpers import *
-
+from .main import *  # noqa: F401,F402,F403
+from .helpers import *  # noqa: F401,F402,F403
