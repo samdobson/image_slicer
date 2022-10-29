@@ -55,7 +55,7 @@ class Tile(object):
             return "<Tile #{} - {}>".format(
                 self.number, os.path.basename(self.filename)
             )
-        return "<Tile #{}>".format(self.number)
+        return self.image
 
 
 def calc_columns_rows(n):
