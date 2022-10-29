@@ -167,7 +167,10 @@ def slice(
     if DecompressionBombWarning is False:
         Image.MAX_IMAGE_PIXELS = None
 
-    im = Image.open(filename)
+    if isinstance(filename, Image.Image):
+        im = filename
+    else:
+        im = Image.open(filename)
     im_w, im_h = im.size
 
     columns = 0
