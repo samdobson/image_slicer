@@ -1,5 +1,7 @@
 # Image Slicer
 
+**This project is no longer maintained.**
+
 [![Downloads](https://pepy.tech/badge/image-slicer)](https://pepy.tech/project/image-slicer)
 [![Build Status](https://github.com/samdobson/image_slicer/workflows/Build%20Master/badge.svg)](https://github.com/samdobson/image_slicer/actions)
 [![Documentation](https://github.com/samdobson/image_slicer/workflows/Documentation/badge.svg)](https://samdobson.github.io/image_slicer)
