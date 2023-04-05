@@ -55,7 +55,7 @@ class Tile(object):
             return "<Tile #{} - {}>".format(
                 self.number, os.path.basename(self.filename)
             )
-        return "<Tile #{}>".format(self.number)
+        return self.image
 
 
 def calc_columns_rows(n):
@@ -167,7 +167,10 @@ def slice(
     if DecompressionBombWarning is False:
         Image.MAX_IMAGE_PIXELS = None
 
-    im = Image.open(filename)
+    if isinstance(filename, Image.Image):
+        im = filename
+    else:
+        im = Image.open(filename)
     im_w, im_h = im.size
 
     columns = 0
