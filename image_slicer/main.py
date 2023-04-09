@@ -140,15 +140,75 @@ def validate_image_col_row(image, col, row):
     if col == 1 and row == 1:
         raise ValueError("There is nothing to divide. You asked for the entire image.")
 
+def slice_operations(im, number_tiles, col, row, save, filename):
+    im_w, im_h = im.size
 
-def slice(
-    filename,
-    number_tiles=None,
-    col=None,
-    row=None,
-    save=True,
-    DecompressionBombWarning=True,
-):
+    columns = 0
+    rows = 0
+    if not number_tiles is None:
+        validate_image(im, number_tiles)
+        columns, rows = calc_columns_rows(number_tiles)
+        extras = (columns * rows) - number_tiles
+    else:
+        validate_image_col_row(im, col, row)
+        columns = col
+        rows = row
+        extras = (columns * rows) - number_tiles
+
+
+    tile_w, tile_h = int(floor(im_w / columns)), int(floor(im_h / rows))
+
+    tiles = []
+    number = 1
+    for pos_y in range(0, im_h - rows, tile_h): # -rows for rounding error.
+        for pos_x in range(0, im_w - columns, tile_w): # as above.
+            area = (pos_x, pos_y, pos_x + tile_w, pos_y + tile_h)
+            image = im.crop(area)
+            position = (int(floor(pos_x / tile_w)) + 1,
+                        int(floor(pos_y / tile_h)) + 1)
+            coords = (pos_x, pos_y)
+            tile = Tile(image, number, position, coords)
+            tiles.append(tile)
+            number += 1
+    if save:
+        save_tiles(tiles,
+                   prefix=get_basename(filename),
+                   directory=os.path.dirname(filename))
+    return tuple(tiles)
+
+
+def slice_PIL_Image(im, number_tiles=None, col=None, row=None, save=True,
+    im_filename=None):
+    """
+    Split an PIL Image object into a specified number of tiles.
+
+    Args:
+       im (str):  The Image object to split.
+       number_tiles (int):  The number of tiles required.
+
+    Kwargs:
+       save (bool): Whether or not to save tiles to disk.
+       im_filename (str): If save=True, the base filename of the Image
+            object. Dynamic filenames for all tiles will be calculated by
+            appending tile number to base filename
+
+            Ex: im_filename = path/image.png
+
+            If number_tiles=2, tiles will be named:
+                path/image_01_01.png
+                path/image_01_02.png
+
+
+    Returns:
+        Tuple of :class:`Tile` instances.
+    """
+    if save:
+        if not im_filename or not isinstance(im_filename, str):
+            raise ValueError("Please enter a base filename if you want to save tiles.")
+    return slice_operations(im, number_tiles, col, row, save, im_filename)
+
+
+def slice(filename, number_tiles=None, col=None, row=None, save=True):
     """
     Split an image into a specified number of tiles.
 
@@ -158,47 +218,12 @@ def slice(
 
     Kwargs:
        save (bool): Whether or not to save tiles to disk.
-       DecompressionBombWarning (bool): Whether to suppress
-       Pillow DecompressionBombWarning
 
     Returns:
         Tuple of :class:`Tile` instances.
     """
-    if DecompressionBombWarning is False:
-        Image.MAX_IMAGE_PIXELS = None
-
     im = Image.open(filename)
-    im_w, im_h = im.size
-
-    columns = 0
-    rows = 0
-    if number_tiles:
-        validate_image(im, number_tiles)
-        columns, rows = calc_columns_rows(number_tiles)
-    else:
-        validate_image_col_row(im, col, row)
-        columns = col
-        rows = row
-
-    tile_w, tile_h = int(floor(im_w / columns)), int(floor(im_h / rows))
-
-    tiles = []
-    number = 1
-    for pos_y in range(0, im_h - rows, tile_h):  # -rows for rounding error.
-        for pos_x in range(0, im_w - columns, tile_w):  # as above.
-            area = (pos_x, pos_y, pos_x + tile_w, pos_y + tile_h)
-            image = im.crop(area)
-            position = (int(floor(pos_x / tile_w)) + 1, int(floor(pos_y / tile_h)) + 1)
-            coords = (pos_x, pos_y)
-            tile = Tile(image, number, position, coords)
-            tiles.append(tile)
-            number += 1
-    if save:
-        save_tiles(
-            tiles, prefix=get_basename(filename), directory=os.path.dirname(filename)
-        )
-    return tuple(tiles)
-
+    return slice_operations(im, number_tiles, col, row, save, filename)
 
 def save_tiles(tiles, prefix="", directory=os.getcwd(), format="png"):
     """
@@ -215,30 +240,28 @@ def save_tiles(tiles, prefix="", directory=os.getcwd(), format="png"):
     Returns:
         Tuple of :class:`Tile` instances.
     """
+#    Causes problems in CLI script.
+#    if not os.path.exists(directory):
+#        os.makedirs(directory)
     for tile in tiles:
-        tile.save(
-            filename=tile.generate_filename(
-                prefix=prefix, directory=directory, format=format
-            ),
-            format=format,
-        )
+        tile.save(filename=tile.generate_filename(prefix=prefix,
+                                                  directory=directory,
+                                                  format=format),
+                                                  format=format)
     return tuple(tiles)
 
 
 def get_image_column_row(filename):
     """Determine column and row position for filename."""
-    row, column = os.path.splitext(filename)[0][-5:].split("_")
-    return (int(column) - 1, int(row) - 1)
+    row, column = os.path.splitext(filename)[0][-5:].split('_')
+    return (int(column)-1, int(row)-1)
 
 
 def open_images_in(directory):
     """Open all images in a directory. Return tuple of Tile instances."""
 
-    files = [
-        filename
-        for filename in os.listdir(directory)
-        if "_" in filename and not filename.startswith("joined")
-    ]
+    files = [filename for filename in os.listdir(directory)
+                    if '_' in filename and not filename.startswith('joined')]
     tiles = []
     if len(files) > 0:
         i = 0
@@ -246,19 +269,11 @@ def open_images_in(directory):
             pos = get_image_column_row(file)
             im = Image.open(os.path.join(directory, file))
 
-            position_xy = [0, 0]
-            count = 0
-            for a, b in zip(pos, im.size):
-                position_xy[count] = a * b
+            position_xy=[0,0]
+            count=0
+            for a,b in zip(pos,im.size):
+                position_xy[count] = a*b
                 count = count + 1
-            tiles.append(
-                Tile(
-                    image=im,
-                    position=pos,
-                    number=i + 1,
-                    coords=position_xy,
-                    filename=file,
-                )
-            )
+            tiles.append(Tile(image = im, position = pos, number = i+1, coords = position_xy, filename = file))
             i = i + 1
     return tiles
