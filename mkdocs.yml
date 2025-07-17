@@ -1,0 +1,32 @@
+site_name: image-slicer
+theme:
+  name: material
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+repo_url: https://github.com/samdobson/image-slicer
+repo_name: samdobson/image-slicer
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+
+nav:
+  - Home: index.md
+  - Tutorials:
+    - 'Slicing your first image': tutorials/slicing-your-first-image.md
+  - How-to Guides:
+    - 'Saving tiles to a different directory': how-to-guides/saving-tiles-to-a-different-directory.md
+    - 'Slice into a specific number of tiles': how-to-guides/slice-by-number-of-tiles.md
+    - 'Slice by tile size': how-to-guides/slice-by-tile-size.md
+  - Reference:
+    - 'Command-Line Interface': reference/cli.md
+    - 'API Reference': reference/api.md
+  - Explanation:
+    - 'How Slicing Works': explanation/how-slicing-works.md
