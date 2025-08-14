@@ -24,7 +24,7 @@ You can use any modern Python package manager, such as `pip` or `uv`.
 
 ```bash
 # Using uv
-uv pip install image-slicer
+uv add image-slicer
 
 # Or using pip
 pip install image-slicer
