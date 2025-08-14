@@ -3,7 +3,7 @@
 [![Downloads](https://pepy.tech/badge/image-slicer)](https://pepy.tech/project/image-slicer)
 [![PyPI version](https://badge.fury.io/py/image-slicer.svg)](https://badge.fury.io/py/image-slicer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Coverage Status](https://coveralls.io/repos/github/samdobson/image-slicer/badge.svg?branch=main)](https://coveralls.io/github/samdobson/image-slicer?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/samdobson/image-slicer/badge.svg?branch=master)](https://coveralls.io/github/samdobson/image-slicer?branch=master)
 
 A high-performance Python library to slice images into tiles.
 
