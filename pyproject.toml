@@ -31,8 +31,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/samdobson/image-slicer"
-Repository = "https://github.com/samdobson/image-slicer"
+Homepage = "https://github.com/samdobson/image_slicer"
+Repository = "https://github.com/samdobson/image_slicer"
 
 [project.scripts]
 imslice = "image_slicer.cli:main"
