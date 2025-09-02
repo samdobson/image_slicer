@@ -47,7 +47,7 @@ jobs:
         pip install .[dev]
     - name: Lint with ruff
       run: |
-        ruff check image_slicer
+        ruff check
     - name: Check with black
       run: |
-        black --check image_slicer
+        black --check
