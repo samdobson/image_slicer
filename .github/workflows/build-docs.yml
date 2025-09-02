@@ -48,9 +48,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .[dev]
 
-      - name: Verify MkDocs configuration
-        run: mkdocs config
-
       - name: Build documentation
         run: mkdocs build
 
