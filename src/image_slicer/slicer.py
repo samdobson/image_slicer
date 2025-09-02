@@ -4,11 +4,17 @@ Core image slicing logic.
 
 from __future__ import annotations
 
+import io
 import math
 import os
-from typing import Generator
+from typing import Any, Generator
 
-import pyvips
+import pyvips  # type: ignore[import-untyped]
+
+try:
+    from PIL import Image as PILImage
+except ImportError:
+    PILImage = None  # type: ignore[assignment]
 
 
 def _find_factors(n: int) -> list[tuple[int, int]]:
@@ -58,24 +64,46 @@ class ImageSlicer:
     images that are much larger than the available RAM.
 
     Attributes:
-        source_path (str): Path to the source image.
+        source_path (Optional[str]): Path to the source image (if loaded from file).
         image (pyvips.Image): The pyvips Image object.
         width (int): The width of the source image.
         height (int): The height of the source image.
     """
 
-    def __init__(self, source_path: str):
+    def __init__(self, source: str | Any):
         """
         Initializes the ImageSlicer.
 
         Args:
-            source_path: The path to the image file to be sliced.
+            source: Either a path to the image file or a PIL Image object.
 
         Raises:
-            pyvips.error.Error: If the source_path is not a valid image.
+            pyvips.error.Error: If the source is not a valid image.
+            ValueError: If PIL Image is provided but Pillow is not installed.
         """
-        self.source_path = source_path
-        self.image = pyvips.Image.new_from_file(source_path, access="random")
+        if isinstance(source, str):
+            self.source_path: str | None = source
+            self.image = pyvips.Image.new_from_file(source, access="random")
+        elif PILImage is not None and isinstance(source, PILImage.Image):
+            self.source_path = None
+            # Convert PIL Image to pyvips Image
+            buffer = io.BytesIO()
+            source.save(buffer, format="PNG")
+            buffer.seek(0)
+            self.image = pyvips.Image.new_from_buffer(
+                buffer.getvalue(), "", access="random"
+            )
+        else:
+            # Handle invalid types or PIL not available
+            if PILImage is None:
+                raise ValueError(
+                    "source must be either a string path or a PIL Image object"
+                )
+            else:
+                raise ValueError(
+                    "source must be either a string path or a PIL Image object"
+                )
+
         self.width = self.image.width
         self.height = self.image.height
 
@@ -96,11 +124,13 @@ class ImageSlicer:
 
         if number_of_tiles:
             rows, cols = _get_grid_from_tiles(number_of_tiles)
+        else:
+            rows, cols = rows, cols
 
         if cols and rows:
-            tile_width = math.ceil(self.width / cols)
-            tile_height = math.ceil(self.height / rows)
-            return tile_width, tile_height
+            calculated_tile_width = math.ceil(self.width / cols)
+            calculated_tile_height = math.ceil(self.height / rows)
+            return calculated_tile_width, calculated_tile_height
 
         raise ValueError(
             "You must specify either 'number_of_tiles', 'cols' and 'rows', "
@@ -216,7 +246,7 @@ class ImageSlicer:
 
 
 def slice_image(
-    source_path: str,
+    source: str | Any,
     output_dir: str,
     naming_format: str = "tile_{row}_{col}.png",
     cols: int | None = None,
@@ -229,7 +259,7 @@ def slice_image(
     A convenience function to slice an image and save the tiles.
 
     Args:
-        source_path: The path to the image file.
+        source: Either a path to the image file or a PIL Image object.
         output_dir: The directory to save the tiles in.
         naming_format: A format string for the output filenames.
         cols: The number of columns to slice the image into.
@@ -238,7 +268,7 @@ def slice_image(
         tile_width: The desired width of each tile.
         tile_height: The desired height of each tile.
     """
-    slicer = ImageSlicer(source_path)
+    slicer = ImageSlicer(source)
     slicer.slice(
         output_dir=output_dir,
         naming_format=naming_format,

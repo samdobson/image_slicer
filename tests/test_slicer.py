@@ -7,6 +7,14 @@ import pyvips
 from image_slicer import ImageSlicer, slice_image
 from image_slicer.slicer import _get_grid_from_tiles
 
+try:
+    from PIL import Image as PILImage
+
+    PIL_AVAILABLE = True
+except ImportError:
+    PILImage = None  # type: ignore
+    PIL_AVAILABLE = False
+
 TEST_IMAGE_WIDTH = 100
 TEST_IMAGE_HEIGHT = 85
 
@@ -167,7 +175,7 @@ def test_slice_image_convenience_function(test_image_path, tmp_path):
     output_dir = str(tmp_path / "output_convenience")
     num_tiles = 4
     slice_image(
-        source_path=test_image_path, output_dir=output_dir, number_of_tiles=num_tiles
+        source=test_image_path, output_dir=output_dir, number_of_tiles=num_tiles
     )
 
     files = os.listdir(output_dir)
@@ -249,3 +257,49 @@ def test_generate_tiles_without_criteria_raises_error(test_image_path):
     # This should match the error on line 195
     with pytest.raises(ValueError, match="Slicing criteria not provided"):
         list(slicer.generate_tiles())
+
+
+@pytest.mark.skipif(not PIL_AVAILABLE, reason="PIL/Pillow not available")
+def test_pil_image_input(tmp_path):
+    """
+    Tests that the ImageSlicer can accept a PIL Image object as input.
+    """
+    # Create a PIL Image
+    pil_image = PILImage.new("RGB", (TEST_IMAGE_WIDTH, TEST_IMAGE_HEIGHT), color="red")
+
+    # Test with ImageSlicer
+    slicer = ImageSlicer(pil_image)
+    assert slicer.width == TEST_IMAGE_WIDTH
+    assert slicer.height == TEST_IMAGE_HEIGHT
+    assert slicer.source_path is None
+
+    # Test slicing works
+    output_dir = str(tmp_path / "output_pil")
+    slicer.slice(output_dir=output_dir, cols=2, rows=2)
+
+    files = os.listdir(output_dir)
+    assert len(files) == 4
+
+
+@pytest.mark.skipif(not PIL_AVAILABLE, reason="PIL/Pillow not available")
+def test_slice_image_with_pil_input(tmp_path):
+    """
+    Tests that the slice_image convenience function works with PIL Image input.
+    """
+    pil_image = PILImage.new("RGB", (TEST_IMAGE_WIDTH, TEST_IMAGE_HEIGHT), color="blue")
+    output_dir = str(tmp_path / "output_pil_convenience")
+
+    slice_image(source=pil_image, output_dir=output_dir, number_of_tiles=4)
+
+    files = os.listdir(output_dir)
+    assert len(files) == 4
+
+
+def test_invalid_source_type():
+    """
+    Tests that providing an invalid source type raises ValueError.
+    """
+    with pytest.raises(
+        ValueError, match="source must be either a string path or a PIL Image object"
+    ):
+        ImageSlicer(123)  # Invalid type

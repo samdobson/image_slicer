@@ -63,7 +63,7 @@ def main():
         tile_width, tile_height = args.tile_size
 
     slice_image(
-        source_path=args.source_path,
+        source=args.source_path,
         output_dir=args.output_dir,
         naming_format=args.naming_format,
         cols=cols,
