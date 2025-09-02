@@ -36,6 +36,7 @@ Repository = "https://github.com/samdobson/image_slicer"
 
 [project.scripts]
 imslice = "image_slicer.cli:main"
+imjoin = "image_slicer.join_cli:main"
 
 [project.optional-dependencies]
 dev = [
