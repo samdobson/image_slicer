@@ -1,4 +1,3 @@
-
 class Image:
     def __init__(self, *args, **kwargs) -> None: ...
     @staticmethod
