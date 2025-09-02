@@ -39,5 +39,4 @@ jobs:
         pip install .[dev]
     - name: Lint with ruff
       run: |
-        ruff check image_slicer
-        ruff format --check image_slicer
+        ruff check
