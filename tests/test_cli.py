@@ -1,4 +1,5 @@
 import os
+import sys
 from unittest.mock import patch
 
 import pytest
@@ -200,6 +201,10 @@ def test_main_invalid_image_path(tmp_path):
             main()
 
 
+@pytest.mark.skipif(
+    sys.platform == "win32",
+    reason="Windows subprocess execution issues with hash randomization",
+)
 def test_main_module_execution(test_image_path, tmp_path):
     """
     Tests the __main__ execution path of the CLI module.
