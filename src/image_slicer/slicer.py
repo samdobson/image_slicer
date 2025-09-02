@@ -7,6 +7,8 @@ from __future__ import annotations
 import io
 import math
 import os
+import re
+from pathlib import Path
 from typing import Any, Generator
 
 import pyvips  # type: ignore[import-untyped]
@@ -245,6 +247,119 @@ class ImageSlicer:
                 yield tile, row_num, col_num
 
 
+class ImageJoiner:
+    """
+    A class to join image tiles back into a single image.
+
+    Attributes:
+        tiles_dir (str): Path to the directory containing tiles.
+        naming_format (str): The naming format used for the tiles.
+    """
+
+    def __init__(self, tiles_dir: str, naming_format: str = "tile_{row}_{col}.png"):
+        """
+        Initialize the ImageJoiner.
+
+        Args:
+            tiles_dir: Directory containing the tiles to join.
+            naming_format: The naming format used for the tiles.
+        """
+        self.tiles_dir = Path(tiles_dir)
+        self.naming_format = naming_format
+
+        if not self.tiles_dir.exists():
+            raise ValueError(f"Tiles directory does not exist: {tiles_dir}")
+
+    def _parse_naming_format(self) -> tuple[str, str]:
+        """Parse the naming format to extract row and col placeholders."""
+        # Convert format string to regex pattern
+        pattern = self.naming_format
+        pattern = pattern.replace("{row}", r"(\d+)")
+        pattern = pattern.replace("{col}", r"(\d+)")
+        pattern = "^" + pattern + "$"
+        return pattern, self.naming_format
+
+    def _discover_tiles(self) -> dict[tuple[int, int], Path]:
+        """
+        Discover all tiles in the directory and return a mapping of
+        (row, col) to file path.
+        """
+        pattern, _ = self._parse_naming_format()
+        tiles = {}
+
+        for file_path in self.tiles_dir.iterdir():
+            if file_path.is_file():
+                match = re.match(pattern, file_path.name)
+                if match:
+                    row, col = int(match.group(1)), int(match.group(2))
+                    tiles[(row, col)] = file_path
+
+        if not tiles:
+            raise ValueError(
+                f"No tiles found in {self.tiles_dir} "
+                f"matching format {self.naming_format}"
+            )
+
+        return tiles
+
+    def _calculate_grid_dimensions(
+        self, tiles: dict[tuple[int, int], Path]
+    ) -> tuple[int, int]:
+        """Calculate the number of rows and columns from discovered tiles."""
+        rows = max(row for row, _ in tiles.keys()) + 1
+        cols = max(col for _, col in tiles.keys()) + 1
+        return rows, cols
+
+    def _validate_tiles(
+        self, tiles: dict[tuple[int, int], Path], rows: int, cols: int
+    ) -> None:
+        """Validate that all expected tiles are present."""
+        missing_tiles = []
+        for row in range(rows):
+            for col in range(cols):
+                if (row, col) not in tiles:
+                    missing_tiles.append(f"tile at ({row}, {col})")
+
+        if missing_tiles:
+            raise ValueError(f"Missing tiles: {', '.join(missing_tiles)}")
+
+    def join(self, output_path: str) -> None:
+        """
+        Join the tiles back into a single image.
+
+        Args:
+            output_path: Path where the joined image will be saved.
+        """
+        tiles = self._discover_tiles()
+        rows, cols = self._calculate_grid_dimensions(tiles)
+        self._validate_tiles(tiles, rows, cols)
+
+        # Create rows of tiles without loading dimensions
+
+        # Create rows of tiles
+        tile_rows = []
+        for row in range(rows):
+            row_tiles = []
+            for col in range(cols):
+                tile_path = str(tiles[(row, col)])
+                tile = pyvips.Image.new_from_file(tile_path)
+                row_tiles.append(tile)
+
+            # Join tiles horizontally to create a row
+            row_image = row_tiles[0]
+            for tile in row_tiles[1:]:
+                row_image = row_image.join(tile, "horizontal")
+            tile_rows.append(row_image)
+
+        # Join rows vertically to create the final image
+        final_image = tile_rows[0]
+        for row_image in tile_rows[1:]:
+            final_image = final_image.join(row_image, "vertical")
+
+        # Save the final image
+        final_image.write_to_file(output_path)
+
+
 def slice_image(
     source: str | Any,
     output_dir: str,
@@ -278,3 +393,20 @@ def slice_image(
         tile_width=tile_width,
         tile_height=tile_height,
     )
+
+
+def join_image(
+    tiles_dir: str,
+    output_path: str,
+    naming_format: str = "tile_{row}_{col}.png",
+) -> None:
+    """
+    A convenience function to join tiles back into a single image.
+
+    Args:
+        tiles_dir: Directory containing the tiles to join.
+        output_path: Path where the joined image will be saved.
+        naming_format: The naming format used for the tiles.
+    """
+    joiner = ImageJoiner(tiles_dir, naming_format)
+    joiner.join(output_path)

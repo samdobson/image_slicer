@@ -4,7 +4,7 @@ import os
 import pytest
 import pyvips
 
-from image_slicer import ImageSlicer, slice_image
+from image_slicer import ImageJoiner, ImageSlicer, join_image, slice_image
 from image_slicer.slicer import _get_grid_from_tiles
 
 try:
@@ -303,3 +303,128 @@ def test_invalid_source_type():
         ValueError, match="source must be either a string path or a PIL Image object"
     ):
         ImageSlicer(123)  # Invalid type
+
+
+def test_join_tiles_basic(test_image_path, tmp_path):
+    """
+    Tests basic tile joining functionality.
+    """
+    # First, slice the image
+    tiles_dir = str(tmp_path / "tiles")
+    output_path = str(tmp_path / "joined.png")
+
+    slicer = ImageSlicer(test_image_path)
+    slicer.slice(output_dir=tiles_dir, cols=2, rows=2)
+
+    # Now join the tiles back together
+    joiner = ImageJoiner(tiles_dir)
+    joiner.join(output_path)
+
+    # Verify the joined image exists and has correct dimensions
+    assert os.path.exists(output_path)
+    joined_image = pyvips.Image.new_from_file(output_path)
+    assert joined_image.width == TEST_IMAGE_WIDTH
+    assert joined_image.height == TEST_IMAGE_HEIGHT
+
+
+def test_join_image_convenience_function(test_image_path, tmp_path):
+    """
+    Tests the join_image convenience function.
+    """
+    tiles_dir = str(tmp_path / "tiles")
+    output_path = str(tmp_path / "joined.png")
+
+    # Slice the image
+    slice_image(test_image_path, tiles_dir, cols=3, rows=2)
+
+    # Join using convenience function
+    join_image(tiles_dir, output_path)
+
+    # Verify the result
+    assert os.path.exists(output_path)
+    joined_image = pyvips.Image.new_from_file(output_path)
+    assert joined_image.width == TEST_IMAGE_WIDTH
+    assert joined_image.height == TEST_IMAGE_HEIGHT
+
+
+def test_join_with_custom_naming_format(test_image_path, tmp_path):
+    """
+    Tests joining with a custom naming format.
+    """
+    tiles_dir = str(tmp_path / "tiles")
+    output_path = str(tmp_path / "joined.png")
+    naming_format = "slice_r{row}_c{col}.jpg"
+
+    # Slice with custom naming format
+    slicer = ImageSlicer(test_image_path)
+    slicer.slice(output_dir=tiles_dir, cols=2, rows=2, naming_format=naming_format)
+
+    # Join with same naming format
+    joiner = ImageJoiner(tiles_dir, naming_format)
+    joiner.join(output_path)
+
+    # Verify the result
+    assert os.path.exists(output_path)
+    joined_image = pyvips.Image.new_from_file(output_path)
+    assert joined_image.width == TEST_IMAGE_WIDTH
+    assert joined_image.height == TEST_IMAGE_HEIGHT
+
+
+def test_join_tiles_nonexistent_directory():
+    """
+    Tests that ImageJoiner raises an error for non-existent directory.
+    """
+    with pytest.raises(ValueError, match="Tiles directory does not exist"):
+        ImageJoiner("/path/to/nonexistent/directory")
+
+
+def test_join_tiles_no_matching_tiles(tmp_path):
+    """
+    Tests that ImageJoiner raises an error when no matching tiles are found.
+    """
+    empty_dir = str(tmp_path / "empty")
+    os.makedirs(empty_dir)
+
+    joiner = ImageJoiner(empty_dir)
+    with pytest.raises(ValueError, match="No tiles found"):
+        joiner.join(str(tmp_path / "output.png"))
+
+
+def test_join_tiles_missing_tiles(test_image_path, tmp_path):
+    """
+    Tests that ImageJoiner raises an error when some tiles are missing.
+    """
+    tiles_dir = str(tmp_path / "tiles")
+
+    # Slice the image to create tiles
+    slicer = ImageSlicer(test_image_path)
+    slicer.slice(output_dir=tiles_dir, cols=2, rows=2)
+
+    # Remove one tile
+    os.remove(os.path.join(tiles_dir, "tile_1_1.png"))
+
+    # Try to join - should fail
+    joiner = ImageJoiner(tiles_dir)
+    with pytest.raises(ValueError, match="Missing tiles"):
+        joiner.join(str(tmp_path / "output.png"))
+
+
+def test_join_tiles_with_partial_edges(test_image_path, tmp_path):
+    """
+    Tests joining tiles that have partial edges (non-uniform tile sizes).
+    """
+    tiles_dir = str(tmp_path / "tiles")
+    output_path = str(tmp_path / "joined.png")
+
+    # Use a grid that creates partial tiles at edges
+    slicer = ImageSlicer(test_image_path)
+    slicer.slice(output_dir=tiles_dir, cols=3, rows=3)
+
+    # Join the tiles
+    joiner = ImageJoiner(tiles_dir)
+    joiner.join(output_path)
+
+    # Verify dimensions match original
+    joined_image = pyvips.Image.new_from_file(output_path)
+    assert joined_image.width == TEST_IMAGE_WIDTH
+    assert joined_image.height == TEST_IMAGE_HEIGHT
