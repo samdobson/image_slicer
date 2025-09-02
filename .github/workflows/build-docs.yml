@@ -8,24 +8,29 @@ on:
 jobs:
   docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.8
+        python-version: '3.13'
     - name: Install Dependencies
       run: |
         pip install --upgrade pip
         pip install .[dev]
     - name: Generate Docs
       run: |
-        make gen-docs
-        touch docs/_build/html/.nojekyll
-    - name: Publish Docs
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+        mkdocs build
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BASE_BRANCH: master # The branch the action should deploy from.
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: docs/_build/html/ # The folder the action should deploy.
+        path: './site'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
