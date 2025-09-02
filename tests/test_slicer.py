@@ -103,6 +103,12 @@ def test_get_grid_from_tiles_logic():
     """
     Tests the internal logic for calculating grid dimensions from tile count.
     """
+    # Test small numbers (edge cases)
+    assert _get_grid_from_tiles(1) == (1, 1)
+    assert _get_grid_from_tiles(2) == (1, 2)
+    assert _get_grid_from_tiles(3) == (1, 3)
+    
+    # Test larger numbers
     assert _get_grid_from_tiles(4) == (2, 2)
     assert _get_grid_from_tiles(6) == (2, 3)
     assert _get_grid_from_tiles(8) == (2, 4)
@@ -220,3 +226,25 @@ def test_naming_format(test_image_path, tmp_path):
     assert "slice_row0_col0.jpg" in files
     assert "slice_row1_col1.jpg" in files
     assert len(files) == 4
+
+
+def test_calculate_tile_dimensions_error_case(test_image_path):
+    """
+    Tests the error case in _calculate_tile_dimensions when insufficient parameters are provided.
+    """
+    slicer = ImageSlicer(test_image_path)
+    
+    # This should raise an error since neither tile_width/height nor cols/rows nor number_of_tiles are provided
+    with pytest.raises(ValueError, match="You must specify either"):
+        slicer._calculate_tile_dimensions()
+
+
+def test_generate_tiles_without_criteria_raises_error(test_image_path):
+    """
+    Tests that calling generate_tiles without any slicing criteria raises an error.
+    """
+    slicer = ImageSlicer(test_image_path)
+    
+    # This should match the error on line 195
+    with pytest.raises(ValueError, match="Slicing criteria not provided"):
+        list(slicer.generate_tiles())
