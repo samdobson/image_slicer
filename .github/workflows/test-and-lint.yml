@@ -23,11 +23,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest tests/ --cov=image_slicer --cov-report=lcov
-    - name: Coveralls
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'
-      uses: coverallsapp/github-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest

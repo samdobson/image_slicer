@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.9, 3.10, 3.11, 3.12, 3.13]
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
@@ -28,8 +28,12 @@ jobs:
         pip install .[test]
     - name: Test with pytest
       run: |
-        pytest --cov-report xml --cov=image_slicer image_slicer/tests/
-        codecov -t ${{ secrets.CODECOV_TOKEN }}
+        pytest tests/ --cov=image_slicer --cov-report=lcov
+    - name: Coveralls
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'
+      uses: coverallsapp/github-action@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest
@@ -39,7 +43,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.13
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
