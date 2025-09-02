@@ -80,3 +80,5 @@ dmypy.json
 create_demo_assets.py
 benchmark.py
 large_random_image.png
+
+coverage.lcov

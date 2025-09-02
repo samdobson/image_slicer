@@ -173,7 +173,7 @@ def test_main_module_execution(test_image_path, tmp_path):
     result = subprocess.run([
         sys.executable, '-m', 'image_slicer.cli',
         test_image_path, output_dir, '--grid', '2', '2'
-    ], cwd='/Users/sam/image_slicer', env={'PYTHONPATH': 'src'}, 
+    ], env={'PYTHONPATH': 'src'}, 
        capture_output=True, text=True)
     
     # Check that it executed successfully
