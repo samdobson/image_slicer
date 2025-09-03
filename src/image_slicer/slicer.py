@@ -139,6 +139,41 @@ class ImageSlicer:
             "or 'tile_width' and 'tile_height'."
         )
 
+    def _generate_tile_info(
+        self,
+        cols: int | None = None,
+        rows: int | None = None,
+        number_of_tiles: int | None = None,
+        tile_width: int | None = None,
+        tile_height: int | None = None,
+    ) -> Generator[tuple[int, int, int, int, int, int], None, None]:
+        """
+        A private generator for tile parameters.
+
+        Yields:
+            A tuple containing (left, top, width, height, row_num, col_num)
+            for each tile in the grid.
+        """
+        if not any([cols, rows, number_of_tiles, tile_width, tile_height]):
+            raise ValueError(
+                "Slicing criteria not provided. Please specify 'cols' and "
+                "'rows', 'number_of_tiles', or 'tile_width' and 'tile_height'."
+            )
+
+        tile_w, tile_h = self._calculate_tile_dimensions(
+            cols, rows, number_of_tiles, tile_width, tile_height
+        )
+
+        for r in range(0, self.height, tile_h):
+            for c in range(0, self.width, tile_w):
+                left = c
+                top = r
+                width = min(tile_w, self.width - c)
+                height = min(tile_h, self.height - r)
+                row_num = r // tile_h
+                col_num = c // tile_w
+                yield (left, top, width, height, row_num, col_num)
+
     def slice(
         self,
         output_dir: str,
@@ -170,33 +205,14 @@ class ImageSlicer:
             tile_width: The desired width of each tile.
             tile_height: The desired height of each tile.
         """
-        if not any([cols, rows, number_of_tiles, tile_width, tile_height]):
-            raise ValueError(
-                "Slicing criteria not provided. Please specify 'cols' and "
-                "'rows', 'number_of_tiles', or 'tile_width' and 'tile_height'."
-            )
-
-        tile_width, tile_height = self._calculate_tile_dimensions(
-            cols, rows, number_of_tiles, tile_width, tile_height
-        )
-
         os.makedirs(output_dir, exist_ok=True)
-        for r in range(0, self.height, tile_height):
-            for c in range(0, self.width, tile_width):
-                left = c
-                top = r
-                width = min(tile_width, self.width - c)
-                height = min(tile_height, self.height - r)
-
-                tile = self.image.crop(left, top, width, height)
-
-                row_num = r // tile_height
-                col_num = c // tile_width
-
-                filename = naming_format.format(row=row_num, col=col_num)
-                output_path = os.path.join(output_dir, filename)
-
-                tile.write_to_file(output_path)
+        for left, top, width, height, row, col in self._generate_tile_info(
+            cols, rows, number_of_tiles, tile_width, tile_height
+        ):
+            tile = self.image.crop(left, top, width, height)
+            filename = naming_format.format(row=row, col=col)
+            output_path = os.path.join(output_dir, filename)
+            tile.write_to_file(output_path)
 
     def generate_tiles(
         self,
@@ -223,28 +239,11 @@ class ImageSlicer:
             A tuple containing the pyvips.Image object for the tile,
             its row number, and its column number.
         """
-        if not any([cols, rows, number_of_tiles, tile_width, tile_height]):
-            raise ValueError(
-                "Slicing criteria not provided. Please specify 'cols' and "
-                "'rows', 'number_of_tiles', or 'tile_width' and 'tile_height'."
-            )
-
-        tile_width, tile_height = self._calculate_tile_dimensions(
+        for left, top, width, height, row, col in self._generate_tile_info(
             cols, rows, number_of_tiles, tile_width, tile_height
-        )
-
-        for r in range(0, self.height, tile_height):
-            for c in range(0, self.width, tile_width):
-                left = c
-                top = r
-                width = min(tile_width, self.width - c)
-                height = min(tile_height, self.height - r)
-
-                tile = self.image.crop(left, top, width, height)
-                row_num = r // tile_height
-                col_num = c // tile_width
-
-                yield tile, row_num, col_num
+        ):
+            tile = self.image.crop(left, top, width, height)
+            yield tile, row, col
 
 
 class ImageJoiner:

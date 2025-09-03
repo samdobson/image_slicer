@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "image-slicer"
-version = "3.0.1"
+version = "3.1.0"
 description = "A high-performance Python library to slice images into tiles."
 readme = "README.md"
 requires-python = ">=3.8"
