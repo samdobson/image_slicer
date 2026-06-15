@@ -8,8 +8,9 @@ import io
 import math
 import os
 import re
+from collections.abc import Generator
 from pathlib import Path
-from typing import Any, Generator
+from typing import Any
 
 import pyvips  # type: ignore[import-untyped]
 
